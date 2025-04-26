@@ -9,6 +9,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Hamburger menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navUl = document.querySelector('nav ul');
+
+    hamburger.addEventListener('click', function() {
+        navUl.classList.toggle('active');
+    });
+
     // Scroll animations
     const elements = document.querySelectorAll('.animate-on-scroll');
     const observer = new IntersectionObserver(entries => {
@@ -17,9 +25,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 entry.target.classList.add('animated');
             }
         });
-    }, { threshold: 0.5 });
-    
+    }, { threshold: 0.2 });
+
     elements.forEach(el => {
         observer.observe(el);
+    });
+
+    // Form validation
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        const name = form.querySelector('input[type="text"]').value;
+        const email = form.querySelector('input[type="email"]').value;
+        const message = form.querySelector('textarea').value;
+
+        if (!name || !email || !message) {
+            e.preventDefault();
+            alert('Please fill in all fields.');
+        }
     });
 });
