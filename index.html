@@ -1,133 +1,294 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Praesidium Systems</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AutoMinds - AI Solution for Vehicle Safety</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(135deg, #f9f9f9, #eef1f6);
+      color: #2e2e2e;
+      line-height: 1.6;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #1e3a8a;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      height: 2px;
+      width: 0%;
+      background: #1e3a8a;
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after { width: 100%; }
+
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    #hero {
+      padding: 6rem 2rem;
+      text-align: center;
+      background: linear-gradient(to right, #1e3a8a, #3b82f6);
+      color: white;
+    }
+
+    #hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(-30px);
+      animation: fadeSlideIn 1s ease forwards 0.2s;
+    }
+
+    #hero p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeSlideIn 1s ease forwards 0.4s;
+    }
+
+    .cta-button {
+      padding: 0.75rem 2rem;
+      background: white;
+      color: #1e3a8a;
+      font-weight: bold;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+    }
+
+    .cta-button:hover {
+      background: #e2e8f0;
+      transform: scale(1.05);
+    }
+
+    section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      font-weight: 700;
+    }
+
+    .features-container, .steps-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card, .step {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .step {
+      border-left: 5px solid #1e3a8a;
+      text-align: left;
+    }
+
+    .feature-card:hover, .step:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    input, textarea {
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+    }
+
+    button {
+      background: #1e3a8a;
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover { background: #3b82f6; }
+
+    footer {
+      background: #1e3a8a;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .fade-in {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    @keyframes fadeSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        display: none;
+        background: white;
+        position: absolute;
+        right: 2rem;
+        top: 70px;
+        width: 200px;
+        padding: 1rem;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      nav ul.active { display: flex; }
+      .hamburger { display: block; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">Praesidium Systems</div>
-        <nav>
-            <ul>
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-        <div class="hamburger">☰</div>
-    </header>
-    <main>
-        <section id="hero">
-            <h1>Ensure Your AI Models Comply with Regulations Effortlessly</h1>
-            <p>Praesidium Systems provides a one-click solution to test your LLMs with custom evaluators and ensure regulatory compliance.</p>
-            <a href="#contact" class="cta-button">Get Started</a>
-        </section>
-        <section id="features" class="animate-on-scroll">
-            <h2>Key Features</h2>
-            <div class="features-container">
-                <div class="feature-card">
-                    <i class="fas fa-cogs"></i>
-                    <h3>Custom Evaluators</h3>
-                    <p>Tailor the testing to your specific needs.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-mouse-pointer"></i>
-                    <h3>One-Click Testing</h3>
-                    <p>Simplify the compliance process.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-balance-scale"></i>
-                    <h3>Regulatory Compliance</h3>
-                    <p>Stay ahead of the curve with up-to-date checks.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-file-alt"></i>
-                    <h3>Detailed Reports</h3>
-                    <p>Get insights into your model's performance.</p>
-                </div>
-            </div>
-        </section>
-        <section id="how-it-works" class="animate-on-scroll">
-            <h2>How It Works</h2>
-            <div class="steps-container">
-                <div class="step">
-                    <h3>Step 1</h3>
-                    <p>Upload your AI model.</p>
-             
-                </div>
-                <div class="step">
-                    <h3>Step 2</h3>
-                    <p>Select or customize evaluators.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 3</h3>
-                    <p>Run the test with one click.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 4</h3>
-                    <p>Review the compliance report.</p>
-                </div>
-            </div>
-        </section>
-        <section id="contact" class="animate-on-scroll">
-            <h2>Get in Touch</h2>
-            <form>
-                <input type="text" placeholder="Name" required>
-                <input type="email" placeholder="Email" required>
-                <textarea placeholder="Message" rows="5" required></textarea>
-                <button type="submit">Send</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>Contact us: info@praesidiumsystems.com | +1 234 567 890</p>
-        <p>Follow us: [Social Media Links]</p>
-    </footer>
-    <script src="scripts.js"></script>
+  <header>
+    <div class="logo">AutoMinds</div>
+    <nav>
+      <ul id="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#steps">How It Works</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </nav>
+  </header>
+
+  <section id="hero">
+    <h1>AI-Powered Safety for Modern Vehicles</h1>
+    <p>Revolutionizing Brake-by-Wire systems with intelligent diagnostics, virtual testing, and fault detection.</p>
+    <a href="#contact" class="cta-button">Get in Touch</a>
+  </section>
+
+  <section id="features">
+    <h2>Our Features</h2>
+    <div class="features-container">
+      <div class="feature-card"> <h3>HARA & FMEA Analysis</h3><p>Systematic hazard identification and failure analysis for safety-critical systems.</p></div>
+      <div class="feature-card"> <h3>Virtual CAN Simulation</h3><p>Simulate and validate messages in real-time for safe communication testing.</p></div>
+      <div class="feature-card"> <h3>LLM-Based Fault Diagnosis</h3><p>Large Language Models identify, explain, and suggest actions for system failures.</p></div>
+    </div>
+  </section>
+
+  <section id="steps">
+    <h2>How It Works</h2>
+    <div class="steps-container">
+      <div class="step"><h3>Step 1</h3><p>Upload vehicle system design.</p></div>
+      <div class="step"><h3>Step 2</h3><p>Run AI-based HARA & FMEA risk assessment.</p></div>
+      <div class="step"><h3>Step 3</h3><p>Simulate CAN network behavior.</p></div>
+      <div class="step"><h3>Step 4</h3><p>Get diagnostics and recommendations.</p></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 AutoMinds. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("nav-links").classList.toggle("active");
+    }
+
+    // Animate elements on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+
+    document.querySelectorAll('.feature-card, .step, form').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
