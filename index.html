@@ -44,7 +44,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Praesidium Systems</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -59,6 +59,7 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
+        <div class="hamburger">☰</div>
     </header>
     <main>
         <section id="hero">
@@ -66,9 +67,9 @@
             <p>Praesidium Systems provides a one-click solution to test your LLMs with custom evaluators and ensure regulatory compliance.</p>
             <a href="#contact" class="cta-button">Get Started</a>
         </section>
-        <section id="features">
+        <section id="features" class="animate-on-scroll">
             <h2>Key Features</h2>
-            <div class="features-container animate-on-scroll">
+            <div class="features-container">
                 <div class="feature-card">
                     <i class="fas fa-cogs"></i>
                     <h3>Custom Evaluators</h3>
@@ -91,12 +92,13 @@
                 </div>
             </div>
         </section>
-        <section id="how-it-works">
+        <section id="how-it-works" class="animate-on-scroll">
             <h2>How It Works</h2>
-            <div class="steps-container animate-on-scroll">
+            <div class="steps-container">
                 <div class="step">
                     <h3>Step 1</h3>
                     <p>Upload your AI model.</p>
+               彼此:1px solid #000000; border-radius: 5px; padding: 10px; margin: 10px 0;">Upload your AI model.</p>
                 </div>
                 <div class="step">
                     <h3>Step 2</h3>
@@ -112,26 +114,13 @@
                 </div>
             </div>
         </section>
-        <section id="testimonials">
-            <h2>What Our Clients Say</h2>
-            <div class="testimonials-container animate-on-scroll">
-                <div class="testimonial">
-                    <p>"Praesidium Systems made compliance testing a breeze!"</p>
-                    <p>- Client A</p>
-                </div>
-                <div class="testimonial">
-                    <p>"The custom evaluators are a game-changer."</p>
-                    <p>- Client B</p>
-                </div>
-            </div>
-        </section>
-        <section id="contact">
+        <section id="contact" class="animate-on-scroll">
             <h2>Get in Touch</h2>
             <form>
                 <input type="text" placeholder="Name" required>
                 <input type="email" placeholder="Email" required>
-                <textarea placeholder="Message" required></textarea>
-                <button type="submit">Send Message</button>
+                <textarea placeholder="Message" rows="5" required></textarea>
+                <button type="submit">Send</button>
             </form>
         </section>
     </main>
