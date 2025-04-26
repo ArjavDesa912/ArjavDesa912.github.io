@@ -1,0 +1,170 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    color: #333;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+main {
+    padding-top: 80px;
+}
+
+section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+#hero {
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    color: #fff;
+    padding: 100px 20px;
+}
+
+#hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+#hero p {
+    font-size: 24px;
+    margin-bottom: 40px;
+}
+
+.cta-button {
+    background-color: #28a745;
+    color: #fff;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.features-container, .steps-container, .testimonials-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.feature-card, .step, .testimonial {
+    background-color: #fff;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 200px;
+}
+
+.feature-card h3, .step h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.feature-card i {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+.feature-card:hover, .step:hover, .testimonial:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input, textarea {
+    width: 300px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.animate-on-scroll.animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .features-container, .steps-container, .testimonials-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .feature-card, .step, .testimonial {
+        width: 80%;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    nav ul li {
+        margin: 10px 0;
+    }
+    
+    input, textarea {
+        width: 80%;
+    }
+}
