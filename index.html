@@ -1,294 +1,913 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AutoMinds - AI Solution for Vehicle Safety</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Open Sans', sans-serif;
-      background: linear-gradient(135deg, #f9f9f9, #eef1f6);
-      color: #2e2e2e;
-      line-height: 1.6;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Monitor - AI Governance Platform</title>
+    <style>
+        :root {
+            --primary: #4a6bdf;
+            --primary-dark: #3a56c5;
+            --secondary: #6c63ff;
+            --accent: #3ae374;
+            --dark: #1a2138;
+            --light: #f5f7ff;
+            --gray: #8893b9;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --shadow: 0 4px 20px rgba(26, 33, 56, 0.1);
+            --radius: 10px;
+        }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: rgba(255,255,255,0.8);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
 
-    .logo {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #1e3a8a;
-    }
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2rem;
-    }
+        header {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
 
-    nav a {
-      text-decoration: none;
-      color: #333;
-      font-weight: 600;
-      position: relative;
-    }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-    nav a::after {
-      content: '';
-      height: 2px;
-      width: 0%;
-      background: #1e3a8a;
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      transition: width 0.3s ease;
-    }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    nav a:hover::after { width: 100%; }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
 
-    .hamburger {
-      display: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
+        .logo-icon {
+            margin-right: 0.5rem;
+            font-size: 1.8rem;
+        }
 
-    #hero {
-      padding: 6rem 2rem;
-      text-align: center;
-      background: linear-gradient(to right, #1e3a8a, #3b82f6);
-      color: white;
-    }
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
 
-    #hero h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      font-weight: 700;
-      opacity: 0;
-      transform: translateY(-30px);
-      animation: fadeSlideIn 1s ease forwards 0.2s;
-    }
+        nav li {
+            margin-left: 2rem;
+        }
 
-    #hero p {
-      font-size: 1.25rem;
-      margin-bottom: 2rem;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeSlideIn 1s ease forwards 0.4s;
-    }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
 
-    .cta-button {
-      padding: 0.75rem 2rem;
-      background: white;
-      color: #1e3a8a;
-      font-weight: bold;
-      border-radius: 50px;
-      text-decoration: none;
-      transition: background 0.3s ease, transform 0.3s ease;
-      display: inline-block;
-    }
+        nav a:hover {
+            opacity: 0.8;
+        }
 
-    .cta-button:hover {
-      background: #e2e8f0;
-      transform: scale(1.05);
-    }
+        .cta-button {
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
 
-    section {
-      padding: 4rem 2rem;
-      max-width: 1200px;
-      margin: auto;
-    }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(58, 227, 116, 0.3);
+            opacity: 1;
+        }
 
-    h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      font-weight: 700;
-    }
+        .hero {
+            background: var(--light);
+            padding: 10rem 0 5rem;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .features-container, .steps-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+        }
 
-    .feature-card, .step {
-      background: white;
-      border-radius: 1rem;
-      padding: 2rem;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-      text-align: center;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s ease;
-    }
+        .hero-text {
+            flex: 1;
+        }
 
-    .step {
-      border-left: 5px solid #1e3a8a;
-      text-align: left;
-    }
+        .hero-image {
+            flex: 1;
+            position: relative;
+        }
 
-    .feature-card:hover, .step:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-    }
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      max-width: 600px;
-      margin: auto;
-      background: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s ease;
-    }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
 
-    input, textarea {
-      padding: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 0.5rem;
-      font-size: 1rem;
-    }
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--gray);
+        }
 
-    button {
-      background: #1e3a8a;
-      color: white;
-      border: none;
-      padding: 0.75rem;
-      font-size: 1rem;
-      font-weight: bold;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
 
-    button:hover { background: #3b82f6; }
+        .primary-button {
+            background: var(--gradient);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+        }
 
-    footer {
-      background: #1e3a8a;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-    }
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(74, 107, 223, 0.3);
+        }
 
-    .fade-in {
-      opacity: 1 !important;
-      transform: translateY(0) !important;
-    }
+        .secondary-button {
+            background: white;
+            color: var(--primary);
+            padding: 0.75rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--primary);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+        }
 
-    @keyframes fadeSlideIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+        .secondary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 107, 223, 0.15);
+        }
 
-    @media (max-width: 768px) {
-      nav ul {
-        flex-direction: column;
-        display: none;
-        background: white;
-        position: absolute;
-        right: 2rem;
-        top: 70px;
-        width: 200px;
-        padding: 1rem;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-      }
+        .button-icon {
+            margin-left: 0.5rem;
+        }
 
-      nav ul.active { display: flex; }
-      .hamburger { display: block; }
-    }
-  </style>
+        .features {
+            padding: 5rem 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .section-title p {
+            font-size: 1.25rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(26, 33, 56, 0.15);
+        }
+
+        .feature-icon {
+            background: var(--gradient);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            color: var(--gray);
+        }
+
+        .how-it-works {
+            padding: 5rem 0;
+            background-color: var(--light);
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+
+        .step-number {
+            background: var(--gradient);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .step-content p {
+            color: var(--gray);
+        }
+
+        .integration-logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .logo-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-item img {
+            height: 50px;
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: filter 0.3s, opacity 0.3s;
+        }
+
+        .logo-item:hover img {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        .logo-item span {
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        .deployment {
+            padding: 5rem 0;
+            background-color: white;
+        }
+
+        .deployment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .deployment-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(138, 147, 185, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .deployment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(26, 33, 56, 0.15);
+            border-color: var(--primary);
+        }
+
+        .deployment-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .deployment-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .deployment-card p {
+            color: var(--gray);
+            flex-grow: 1;
+        }
+
+        .deployment-card .learn-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .deployment-card .learn-more:hover {
+            color: var(--primary-dark);
+        }
+
+        .learn-more-icon {
+            margin-left: 0.25rem;
+            transition: transform 0.3s;
+        }
+
+        .deployment-card .learn-more:hover .learn-more-icon {
+            transform: translateX(3px);
+        }
+
+        .cta-section {
+            padding: 5rem 0;
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .cta-primary {
+            background-color: white;
+            color: var(--primary);
+            padding: 0.75rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-secondary {
+            background-color: transparent;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid white;
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        }
+
+        .cta-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(138, 147, 185, 0.2);
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-button {
+                display: block;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--dark);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            text-align: center;
+        }
+
+        .mobile-menu li {
+            margin-bottom: 2rem;
+        }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .mobile-menu-button {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-button {
+                display: block;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="logo">AutoMinds</div>
-    <nav>
-      <ul id="nav-links">
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#steps">How It Works</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <div class="hamburger" onclick="toggleMenu()">☰</div>
-    </nav>
-  </header>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <span class="logo-icon">⚙️</span>
+                LLM Monitor
+            </div>
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#deployment">Deployment</a></li>
+                    <li><a href="#contact" class="cta-button">Contact Us</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-button">☰</button>
+        </div>
+    </header>
 
-  <section id="hero">
-    <h1>AI-Powered Safety for Modern Vehicles</h1>
-    <p>Revolutionizing Brake-by-Wire systems with intelligent diagnostics, virtual testing, and fault detection.</p>
-    <a href="#contact" class="cta-button">Get in Touch</a>
-  </section>
-
-  <section id="features">
-    <h2>Our Features</h2>
-    <div class="features-container">
-      <div class="feature-card"> <h3>HARA & FMEA Analysis</h3><p>Systematic hazard identification and failure analysis for safety-critical systems.</p></div>
-      <div class="feature-card"> <h3>Virtual CAN Simulation</h3><p>Simulate and validate messages in real-time for safe communication testing.</p></div>
-      <div class="feature-card"> <h3>LLM-Based Fault Diagnosis</h3><p>Large Language Models identify, explain, and suggest actions for system failures.</p></div>
+    <div class="mobile-menu">
+        <button class="mobile-menu-close">✕</button>
+        <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#deployment">Deployment</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
     </div>
-  </section>
 
-  <section id="steps">
-    <h2>How It Works</h2>
-    <div class="steps-container">
-      <div class="step"><h3>Step 1</h3><p>Upload vehicle system design.</p></div>
-      <div class="step"><h3>Step 2</h3><p>Run AI-based HARA & FMEA risk assessment.</p></div>
-      <div class="step"><h3>Step 3</h3><p>Simulate CAN network behavior.</p></div>
-      <div class="step"><h3>Step 4</h3><p>Get diagnostics and recommendations.</p></div>
-    </div>
-  </section>
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1 class="fade-in">Governance for AI, Simplified</h1>
+                <p class="fade-in">Monitor, evaluate and ensure compliance of your LLMs and ML models. Our cutting-edge platform helps you maintain regulatory alignment with customizable governance frameworks.</p>
+                <div class="hero-buttons fade-in">
+                    <a href="#contact" class="primary-button">
+                        Request Demo
+                        <span class="button-icon">→</span>
+                    </a>
+                    <a href="#features" class="secondary-button">
+                        Explore Features
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image fade-in">
+                <img src="/api/placeholder/600/400" alt="LLM Monitor Dashboard"/>
+            </div>
+        </div>
+    </section>
 
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <form>
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
-      <textarea rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Comprehensive Model Governance</h2>
+                <p>Our platform offers end-to-end governance solutions for your AI systems</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Hallucination Detection</h3>
+                    <p>Automatically identify and flag when your models generate inaccurate or fabricated information.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📋</div>
+                    <h3>Compliance Monitoring</h3>
+                    <p>Monitor model outputs for compliance with industry regulations and your custom policies.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📊</div>
+                    <h3>Performance Tracking</h3>
+                    <p>Comprehensive dashboards to track model performance, version history, and dataset lineage.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🛠️</div>
+                    <h3>Customizable Frameworks</h3>
+                    <p>Define and enforce your own policies, regulatory frameworks, and documentation requirements.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Seamless Integration</h3>
+                    <p>Connects with your existing ML ecosystem and major LLM providers for frictionless adoption.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Flexible Deployment</h3>
+                    <p>Deploy on any cloud provider, on-premises, or within your VPC for maximum security.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <footer>
-    <p>© 2025 AutoMinds. All rights reserved.</p>
-  </footer>
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>How It Works</h2>
+                <p>Our platform integrates seamlessly with your AI workflow</p>
+            </div>
+            <div class="steps">
+                <div class="step fade-in">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Connect Your Models</h3>
+                        <p>Integrate with APIs from OpenAI, Claude, Gemini, or use lightweight local LLMs (2-3B parameters) for cost efficiency.</p>
+                    </div>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Define Your Governance Framework</h3>
+                        <p>Customize compliance requirements, regulatory frameworks, and policy documentation specific to your organization.</p>
+                    </div>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Monitor & Evaluate</h3>
+                        <p>Continuously track model performance, detect hallucinations, and identify compliance gaps in real-time.</p>
+                    </div>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Report & Improve</h3>
+                        <p>Generate comprehensive reports for stakeholders and use insights to improve model performance and compliance.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="integration-logos">
+                <div class="logo-item fade-in">
+                    <img src="/api/placeholder/120/50" alt="OpenAI Logo"/>
+                    <span>OpenAI</span>
+                </div>
+                <div class="logo-item fade-in">
+                    <img src="/api/placeholder/120/50" alt="Anthropic Logo"/>
+                    <span>Anthropic</span>
+                </div>
+                <div class="logo-item fade-in">
+                    <img src="/api/placeholder/120/50" alt="Google Logo"/>
+                    <span>Google</span>
+                </div>
+                <div class="logo-item fade-in">
+                    <img src="/api/placeholder/120/50" alt="AWS Logo"/>
+                    <span>AWS</span>
+                </div>
+                <div class="logo-item fade-in">
+                    <img src="/api/placeholder/120/50" alt="Azure Logo"/>
+                    <span>Azure</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <script>
-    function toggleMenu() {
-      document.getElementById("nav-links").classList.toggle("active");
-    }
+    <section id="deployment" class="deployment">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Flexible Deployment Options</h2>
+                <p>Deploy our platform wherever it makes the most sense for your organization</p>
+            </div>
+            <div class="deployment-options">
+                <div class="deployment-card fade-in">
+                    <div class="deployment-icon">☁️</div>
+                    <h3>Cloud Deployment</h3>
+                    <p>Deploy on AWS, Azure, or Google Cloud with our managed service for maximum convenience and scalability.</p>
+                    <a href="#" class="learn-more">
+                        Learn more
+                        <span class="learn-more-icon">→</span>
+                    </a>
+                </div>
+                <div class="deployment-card fade-in">
+                    <div class="deployment-icon">🏢</div>
+                    <h3>On-Premises</h3>
+                    <p>Install on your own hardware for complete control and compliance with data residency requirements.</p>
+                    <a href="#" class="learn-more">
+                        Learn more
+                        <span class="learn-more-icon">→</span>
+                    </a>
+                </div>
+                <div class="deployment-card fade-in">
+                    <div class="deployment-icon">🔒</div>
+                    <h3>VPC Deployment</h3>
+                    <p>Deploy within your Virtual Private Cloud for enhanced security and privacy while maintaining flexibility.</p>
+                    <a href="#" class="learn-more">
+                        Learn more
+                        <span class="learn-more-icon">→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    // Animate elements on scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in');
-        }
-      });
-    }, {
-      threshold: 0.2
-    });
+    <section id="contact" class="cta-section">
+        <div class="container">
+            <h2 class="fade-in">Ready to Ensure Compliance for Your AI Systems?</h2>
+            <p class="fade-in">Get in touch with our team for a personalized demo and see how our platform can help your organization maintain regulatory integrity throughout the model lifecycle.</p>
+            <div class="cta-buttons fade-in">
+                <a href="#" class="cta-primary">Request Demo</a>
+                <a href="#" class="cta-secondary">Contact Sales</a>
+            </div>
+        </div>
+    </section>
 
-    document.querySelectorAll('.feature-card, .step, form').forEach(el => observer.observe(el));
-  </script>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>LLM Monitor</h3>
+                    <p>Governance for AI, simplified.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#deployment">Deployment</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Webinars</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 LLM Monitor. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        document.querySelector('.mobile-menu').classList.remove('open');
+                    }
+                });
+            });
+            
+            // Mobile menu toggle
+            const mobileMenuButton = document.querySelector('.mobile-menu-button');
+            const mobileMenuCloseButton = document.querySelector('.mobile-menu-close');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.add('open');
+            });
+            
+            mobileMenuCloseButton.addEventListener('click', function() {
+                mobileMenu.classList.remove('open');
+            });
+        });
+    </script>
 </body>
 </html>
