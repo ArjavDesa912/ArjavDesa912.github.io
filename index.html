@@ -13,9 +13,35 @@
             --dark: #1a2138;
             --light: #f5f7ff;
             --gray: #8893b9;
+            --warning: #ff9800;
             --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             --shadow: 0 4px 20px rgba(26, 33, 56, 0.1);
             --radius: 10px;
+        }
+        
+        /* Construction Banner */
+        .construction-banner {
+            background-color: var(--warning);
+            color: white;
+            text-align: center;
+            padding: 0.75rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 2000;
+            box-shadow: var(--shadow);
+            font-weight: 500;
+        }
+        
+        /* Adjust header position for banner */
+        header {
+            top: 42px;
+        }
+        
+        /* Adjust hero section for banner */
+        .hero {
+            padding-top: 12rem;
         }
 
         * {
@@ -614,11 +640,16 @@
     </style>
 </head>
 <body>
+    <div class="construction-banner">
+        <div class="container">
+            <strong>🚧 WEBSITE UNDER CONSTRUCTION 🚧</strong> We're currently building our site. Some features may be incomplete.
+        </div>
+    </div>
     <header>
         <div class="container nav-container">
             <div class="logo">
                 <span class="logo-icon">⚙️</span>
-                LLM Monitor
+                Praesidium Systems
             </div>
             <nav class="nav-links">
                 <ul>
@@ -856,8 +887,19 @@
     </footer>
 
     <script>
-        // Scroll animation
+        // Construction banner animation
         document.addEventListener('DOMContentLoaded', function() {
+            const constructionBanner = document.querySelector('.construction-banner');
+            
+            // Add pulse animation to the banner
+            setInterval(() => {
+                constructionBanner.style.opacity = '0.8';
+                setTimeout(() => {
+                    constructionBanner.style.opacity = '1';
+                }, 500);
+            }, 3000);
+            
+            // Scroll animation
             const fadeElements = document.querySelectorAll('.fade-in');
             
             const observer = new IntersectionObserver((entries) => {
