@@ -3,951 +3,545 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Praesidium Systems - AI Governance Platform</title>
+    <title>Praesidium Systems - AI Compliance Simplified</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        :root {
-            --primary: #4a6bdf;
-            --primary-dark: #3a56c5;
-            --secondary: #6c63ff;
-            --accent: #3ae374;
-            --dark: #1a2138;
-            --light: #f5f7ff;
-            --gray: #8893b9;
-            --warning: #ff9800;
-            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            --shadow: 0 4px 20px rgba(26, 33, 56, 0.1);
-            --radius: 10px;
-        }
-        
-        /* Construction Banner */
-        .construction-banner {
-            background-color: var(--warning);
-            color: white;
-            text-align: center;
-            padding: 0.75rem 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 2000;
-            box-shadow: var(--shadow);
-            font-weight: 500;
-        }
-        
-        /* Adjust header position for banner */
-        header {
-            top: 42px;
-        }
-        
-        /* Adjust hero section for banner */
-        .hero {
-            padding-top: 12rem;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        }
-
         body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-        }
-
-        header {
-            background: var(--gradient);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: var(--shadow);
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo-icon {
-            margin-right: 0.5rem;
-            font-size: 1.8rem;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav li {
-            margin-left: 2rem;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.3s;
-        }
-
-        nav a:hover {
-            opacity: 0.8;
-        }
-
-        .cta-button {
-            background-color: var(--accent);
-            color: var(--dark);
-            padding: 0.5rem 1.5rem;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(58, 227, 116, 0.3);
-            opacity: 1;
-        }
-
-        .hero {
-            background: var(--light);
-            padding: 10rem 0 5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 4rem;
-        }
-
-        .hero-text {
-            flex: 1;
-        }
-
-        .hero-image {
-            flex: 1;
-            position: relative;
-        }
-
-        .hero-image img {
-            width: 100%;
-            height: auto;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            color: var(--gray);
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .primary-button {
-            background: var(--gradient);
-            color: white;
-            padding: 0.75rem 2rem;
-            border-radius: 30px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .primary-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(74, 107, 223, 0.3);
-        }
-
-        .secondary-button {
-            background: white;
-            color: var(--primary);
-            padding: 0.75rem 2rem;
-            border-radius: 30px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid var(--primary);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .secondary-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(74, 107, 223, 0.15);
-        }
-
-        .button-icon {
-            margin-left: 0.5rem;
-        }
-
-        .features {
-            padding: 5rem 0;
-            background-color: white;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .section-title p {
-            font-size: 1.25rem;
-            color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(26, 33, 56, 0.15);
-        }
-
-        .feature-icon {
-            background: var(--gradient);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .feature-card p {
-            color: var(--gray);
-        }
-
-        .how-it-works {
-            padding: 5rem 0;
-            background-color: var(--light);
-        }
-
-        .steps {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .step {
-            display: flex;
-            align-items: flex-start;
-            gap: 2rem;
-        }
-
-        .step-number {
-            background: var(--gradient);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .step-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-
-        .step-content p {
-            color: var(--gray);
-        }
-
-        .integration-logos {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 3rem;
-            margin-top: 4rem;
-        }
-
-        .logo-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo-item img {
-            height: 50px;
-            filter: grayscale(100%);
-            opacity: 0.6;
-            transition: filter 0.3s, opacity 0.3s;
-        }
-
-        .logo-item:hover img {
-            filter: grayscale(0%);
-            opacity: 1;
-        }
-
-        .logo-item span {
-            font-size: 0.875rem;
-            color: var(--gray);
-        }
-
-        .deployment {
-            padding: 5rem 0;
-            background-color: white;
-        }
-
-        .deployment-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .deployment-card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(138, 147, 185, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .deployment-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(26, 33, 56, 0.15);
-            border-color: var(--primary);
-        }
-
-        .deployment-icon {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-        }
-
-        .deployment-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .deployment-card p {
-            color: var(--gray);
-            flex-grow: 1;
-        }
-
-        .deployment-card .learn-more {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            margin-top: 1.5rem;
-            transition: color 0.3s;
-        }
-
-        .deployment-card .learn-more:hover {
-            color: var(--primary-dark);
-        }
-
-        .learn-more-icon {
-            margin-left: 0.25rem;
-            transition: transform 0.3s;
-        }
-
-        .deployment-card .learn-more:hover .learn-more-icon {
-            transform: translateX(3px);
-        }
-
-        .cta-section {
-            padding: 5rem 0;
-            background: var(--gradient);
-            color: white;
-            text-align: center;
-        }
-
-        .cta-section h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta-section p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            opacity: 0.9;
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .cta-primary {
-            background-color: white;
-            color: var(--primary);
-            padding: 0.75rem 2rem;
-            border-radius: 30px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .cta-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2);
-        }
-
-        .cta-secondary {
-            background-color: transparent;
-            color: white;
-            padding: 0.75rem 2rem;
-            border-radius: 30px;
-            font-weight: 600;
-            text-decoration: none;
-            border: 1px solid white;
-            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
-        }
-
-        .cta-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.1);
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 4rem 0 2rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-column h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-            color: white;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-links a {
-            color: var(--gray);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        .copyright {
-            border-top: 1px solid rgba(138, 147, 185, 0.2);
-            padding-top: 2rem;
-            text-align: center;
-            color: var(--gray);
-            font-size: 0.875rem;
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            .hero-content {
-                flex-direction: column;
-                gap: 2rem;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu-button {
-                display: block;
-                background: none;
-                border: none;
-                color: white;
-                font-size: 1.5rem;
-                cursor: pointer;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-
-        /* Animation classes */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Mobile menu */
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--dark);
-            z-index: 2000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .mobile-menu.open {
-            transform: translateX(0);
-        }
-
-        .mobile-menu-close {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .mobile-menu ul {
-            list-style: none;
-            text-align: center;
-        }
-
-        .mobile-menu li {
-            margin-bottom: 2rem;
-        }
-
-        .mobile-menu a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .mobile-menu-button {
-            display: none;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-button {
-                display: block;
-            }
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .transition-opacity {
+            transition: opacity 1s ease-in-out;
         }
     </style>
 </head>
-<body>
-    <div class="construction-banner">
-        <div class="container">
-            <strong>🚧 WEBSITE UNDER CONSTRUCTION 🚧</strong> We're currently building our site. Some features may be incomplete.
-        </div>
-    </div>
-    <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <span class="logo-icon">⚙️</span>
-                Praesidium Systems
+<body class="min-h-screen bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="fixed w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i data-lucide="shield" class="h-8 w-8 text-blue-600"></i>
+                <span class="text-xl font-bold text-gray-900">Praesidium Systems</span>
             </div>
-            <nav class="nav-links">
-                <ul>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="#deployment">Deployment</a></li>
-                    <li><a href="#contact" class="cta-button">Contact Us</a></li>
-                </ul>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-6">
+                <button onclick="scrollToSection('features')" class="text-gray-700 hover:text-blue-600 transition-colors">Features</button>
+                <button onclick="scrollToSection('how-it-works')" class="text-gray-700 hover:text-blue-600 transition-colors">How It Works</button>
+                <button onclick="scrollToSection('deployment')" class="text-gray-700 hover:text-blue-600 transition-colors">Deployment</button>
+                <button onclick="scrollToSection('contact')" class="px-5 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors">Contact Us</button>
             </nav>
-            <button class="mobile-menu-button">☰</button>
+            
+            <!-- Mobile Menu Button -->
+            <button 
+                onclick="toggleMobileMenu(true)" 
+                class="md:hidden text-gray-700"
+            >
+                <i data-lucide="menu" class="h-6 w-6"></i>
+            </button>
         </div>
     </header>
 
-    <div class="mobile-menu">
-        <button class="mobile-menu-close">✕</button>
-        <ul>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#how-it-works">How It Works</a></li>
-            <li><a href="#deployment">Deployment</a></li>
-            <li><a href="#contact">Contact Us</a></li>
-        </ul>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 md:hidden hidden">
+        <div class="h-full w-64 bg-white p-6 flex flex-col shadow-lg">
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="shield" class="h-7 w-7 text-blue-600"></i>
+                    <span class="text-lg font-bold text-gray-900">Praesidium</span>
+                </div>
+                <button onclick="toggleMobileMenu(false)">
+                    <i data-lucide="x" class="h-6 w-6 text-gray-700"></i>
+                </button>
+            </div>
+            <nav class="flex flex-col gap-4">
+                <button 
+                    onclick="scrollToSection('features'); toggleMobileMenu(false);" 
+                    class="text-gray-700 hover:text-blue-600 transition-colors text-left py-2 border-b border-gray-100"
+                >
+                    Features
+                </button>
+                <button 
+                    onclick="scrollToSection('how-it-works'); toggleMobileMenu(false);" 
+                    class="text-gray-700 hover:text-blue-600 transition-colors text-left py-2 border-b border-gray-100"
+                >
+                    How It Works
+                </button>
+                <button 
+                    onclick="scrollToSection('deployment'); toggleMobileMenu(false);" 
+                    class="text-gray-700 hover:text-blue-600 transition-colors text-left py-2 border-b border-gray-100"
+                >
+                    Deployment
+                </button>
+                <button 
+                    onclick="scrollToSection('contact'); toggleMobileMenu(false);" 
+                    class="mt-4 px-5 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"
+                >
+                    Contact Us
+                </button>
+            </nav>
+        </div>
     </div>
 
-    <section class="hero">
-        <div class="container hero-content">
-            <div class="hero-text">
-                <h1 class="fade-in">Governance for AI, Simplified</h1>
-                <p class="fade-in">Monitor, evaluate and ensure compliance of your LLMs and ML models. Our cutting-edge platform helps you maintain regulatory alignment with customizable governance frameworks.</p>
-                <div class="hero-buttons fade-in">
-                    <a href="#contact" class="primary-button">
-                        Request Demo
-                        <span class="button-icon">→</span>
-                    </a>
-                    <a href="#features" class="secondary-button">
-                        Explore Features
-                    </a>
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="md:w-1/2 space-y-6">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+                        AI Compliance <span class="text-blue-600">Simplified</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 max-w-lg">
+                        Monitor, audit, and ensure regulatory compliance for your AI models with our comprehensive governance platform.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button 
+                            onclick="scrollToSection('contact')"
+                            class="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                        >
+                            Request Demo
+                            <i data-lucide="chevron-right" class="h-5 w-5"></i>
+                        </button>
+                        <button 
+                            onclick="scrollToSection('features')"
+                            class="px-6 py-3 border border-blue-600 text-blue-600 rounded-full hover:bg-blue-50 transition-colors flex items-center justify-center"
+                        >
+                            Explore Features
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-image fade-in">
-                <img src="/api/placeholder/600/400" alt="LLM Monitor Dashboard"/>
-            </div>
-        </div>
-    </section>
-
-    <section id="features" class="features">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Comprehensive Model Governance</h2>
-                <p>Our platform offers end-to-end governance solutions for your AI systems</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">🔍</div>
-                    <h3>Hallucination Detection</h3>
-                    <p>Automatically identify and flag when your models generate inaccurate or fabricated information.</p>
-                </div>
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">📋</div>
-                    <h3>Compliance Monitoring</h3>
-                    <p>Monitor model outputs for compliance with industry regulations and your custom policies.</p>
-                </div>
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">📊</div>
-                    <h3>Performance Tracking</h3>
-                    <p>Comprehensive dashboards to track model performance, version history, and dataset lineage.</p>
-                </div>
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">🛠️</div>
-                    <h3>Customizable Frameworks</h3>
-                    <p>Define and enforce your own policies, regulatory frameworks, and documentation requirements.</p>
-                </div>
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">🔄</div>
-                    <h3>Seamless Integration</h3>
-                    <p>Connects with your existing ML ecosystem and major LLM providers for frictionless adoption.</p>
-                </div>
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Flexible Deployment</h3>
-                    <p>Deploy on any cloud provider, on-premises, or within your VPC for maximum security.</p>
+                <div class="md:w-1/2">
+                    <img 
+                        src="/api/placeholder/600/400" 
+                        alt="AI Compliance Dashboard" 
+                        class="rounded-lg shadow-xl"
+                    >
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="how-it-works" class="how-it-works">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>How It Works</h2>
-                <p>Our platform integrates seamlessly with your AI workflow</p>
+    <!-- Features Section -->
+    <section 
+        id="features" 
+        class="py-20 bg-white opacity-0 transition-opacity duration-1000"
+    >
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Comprehensive AI Governance Platform</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    From hallucination detection to regulatory compliance, our platform offers end-to-end governance solutions.
+                </p>
             </div>
-            <div class="steps">
-                <div class="step fade-in">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Connect Your Models</h3>
-                        <p>Integrate with APIs from OpenAI, Claude, Gemini, or use lightweight local LLMs (2-3B parameters) for cost efficiency.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
+                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
+                        <i data-lucide="search" class="h-6 w-6"></i>
                     </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Hallucination Detection</h3>
+                    <p class="text-gray-600">
+                        Automatically identify and flag when your models generate inaccurate or fabricated information through advanced verification techniques.
+                    </p>
                 </div>
-                <div class="step fade-in">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Define Your Governance Framework</h3>
-                        <p>Customize compliance requirements, regulatory frameworks, and policy documentation specific to your organization.</p>
+                
+                <!-- Feature 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
+                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
+                        <i data-lucide="shield" class="h-6 w-6"></i>
                     </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Compliance Monitoring</h3>
+                    <p class="text-gray-600">
+                        Continuously track model outputs for alignment with industry regulations like GDPR, HIPAA, and your custom policies.
+                    </p>
                 </div>
-                <div class="step fade-in">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Monitor & Evaluate</h3>
-                        <p>Continuously track model performance, detect hallucinations, and identify compliance gaps in real-time.</p>
+                
+                <!-- Feature 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
+                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
+                        <i data-lucide="alert-triangle" class="h-6 w-6"></i>
                     </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Agency Analysis</h3>
+                    <p class="text-gray-600">
+                        Detect and prevent situations where AI models overstate their capabilities or make unauthorized commitments.
+                    </p>
                 </div>
-                <div class="step fade-in">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>Report & Improve</h3>
-                        <p>Generate comprehensive reports for stakeholders and use insights to improve model performance and compliance.</p>
+                
+                <!-- Feature 4 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
+                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
+                        <i data-lucide="bar-chart-2" class="h-6 w-6"></i>
                     </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Performance Tracking</h3>
+                    <p class="text-gray-600">
+                        Comprehensive dashboards to track model performance, version history, and dataset lineage over time.
+                    </p>
                 </div>
-            </div>
-            <div class="integration-logos">
-                <div class="logo-item fade-in">
-                    <img src="/api/placeholder/120/50" alt="OpenAI Logo"/>
-                    <span>OpenAI</span>
+                
+                <!-- Feature 5 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
+                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
+                        <i data-lucide="settings" class="h-6 w-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Customizable Frameworks</h3>
+                    <p class="text-gray-600">
+                        Define and enforce your own policies, regulatory frameworks, and documentation requirements.
+                    </p>
                 </div>
-                <div class="logo-item fade-in">
-                    <img src="/api/placeholder/120/50" alt="Anthropic Logo"/>
-                    <span>Anthropic</span>
-                </div>
-                <div class="logo-item fade-in">
-                    <img src="/api/placeholder/120/50" alt="Google Logo"/>
-                    <span>Google</span>
-                </div>
-                <div class="logo-item fade-in">
-                    <img src="/api/placeholder/120/50" alt="AWS Logo"/>
-                    <span>AWS</span>
-                </div>
-                <div class="logo-item fade-in">
-                    <img src="/api/placeholder/120/50" alt="Azure Logo"/>
-                    <span>Azure</span>
+                
+                <!-- Feature 6 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
+                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
+                        <i data-lucide="code" class="h-6 w-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Seamless Integration</h3>
+                    <p class="text-gray-600">
+                        Connects with your existing ML ecosystem and major LLM providers for frictionless adoption.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="deployment" class="deployment">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Flexible Deployment Options</h2>
-                <p>Deploy our platform wherever it makes the most sense for your organization</p>
+    <!-- How It Works Section -->
+    <section 
+        id="how-it-works" 
+        class="py-20 bg-blue-50 opacity-0 transition-opacity duration-1000"
+    >
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Our platform integrates seamlessly with your AI workflow in four simple steps
+                </p>
             </div>
-            <div class="deployment-options">
-                <div class="deployment-card fade-in">
-                    <div class="deployment-icon">☁️</div>
-                    <h3>Cloud Deployment</h3>
-                    <p>Deploy on AWS, Azure, or Google Cloud with our managed service for maximum convenience and scalability.</p>
-                    <a href="#" class="learn-more">
+            
+            <div class="max-w-4xl mx-auto space-y-12">
+                <!-- Step 1 -->
+                <div class="flex flex-col md:flex-row gap-6 items-start">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xl">
+                        1
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Connect Your Models</h3>
+                        <p class="text-gray-600">
+                            Integrate with APIs from OpenAI, Claude, Gemini, or use lightweight local LLMs for cost efficiency. Our platform offers flexible connection options for all major providers.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="flex flex-col md:flex-row gap-6 items-start">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xl">
+                        2
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Define Your Governance Framework</h3>
+                        <p class="text-gray-600">
+                            Customize compliance requirements, regulatory frameworks, and policy documentation specific to your organization and industry needs.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="flex flex-col md:flex-row gap-6 items-start">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xl">
+                        3
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Monitor & Evaluate</h3>
+                        <p class="text-gray-600">
+                            Continuously track model performance, detect hallucinations, and identify compliance gaps in real-time through our advanced monitoring dashboard.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="flex flex-col md:flex-row gap-6 items-start">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xl">
+                        4
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Report & Improve</h3>
+                        <p class="text-gray-600">
+                            Generate comprehensive reports for stakeholders and use insights to improve model performance and compliance over time.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Integrations -->
+            <div class="mt-20">
+                <h3 class="text-xl font-bold text-gray-900 text-center mb-8">Works with all major AI providers</h3>
+                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+                    <div class="text-center opacity-70 hover:opacity-100 transition-opacity">
+                        <img src="/api/placeholder/100/40" alt="OpenAI" class="mx-auto">
+                        <span class="text-sm text-gray-600 mt-2 block">OpenAI</span>
+                    </div>
+                    <div class="text-center opacity-70 hover:opacity-100 transition-opacity">
+                        <img src="/api/placeholder/100/40" alt="Anthropic" class="mx-auto">
+                        <span class="text-sm text-gray-600 mt-2 block">Anthropic</span>
+                    </div>
+                    <div class="text-center opacity-70 hover:opacity-100 transition-opacity">
+                        <img src="/api/placeholder/100/40" alt="Google" class="mx-auto">
+                        <span class="text-sm text-gray-600 mt-2 block">Google</span>
+                    </div>
+                    <div class="text-center opacity-70 hover:opacity-100 transition-opacity">
+                        <img src="/api/placeholder/100/40" alt="AWS" class="mx-auto">
+                        <span class="text-sm text-gray-600 mt-2 block">AWS</span>
+                    </div>
+                    <div class="text-center opacity-70 hover:opacity-100 transition-opacity">
+                        <img src="/api/placeholder/100/40" alt="Azure" class="mx-auto">
+                        <span class="text-sm text-gray-600 mt-2 block">Azure</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deployment Section -->
+    <section 
+        id="deployment" 
+        class="py-20 bg-white opacity-0 transition-opacity duration-1000"
+    >
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Flexible Deployment Options</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Deploy our platform wherever it makes the most sense for your organization
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Cloud -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all">
+                    <div class="mb-4 text-blue-600">
+                        <i data-lucide="server" class="h-10 w-10"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Cloud Deployment</h3>
+                    <p class="text-gray-600 mb-4">
+                        Deploy on AWS, Azure, or Google Cloud with our managed service for maximum convenience and scalability.
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium flex items-center gap-1 hover:gap-2 transition-all">
                         Learn more
-                        <span class="learn-more-icon">→</span>
+                        <i data-lucide="chevron-right" class="h-4 w-4"></i>
                     </a>
                 </div>
-                <div class="deployment-card fade-in">
-                    <div class="deployment-icon">🏢</div>
-                    <h3>On-Premises</h3>
-                    <p>Install on your own hardware for complete control and compliance with data residency requirements.</p>
-                    <a href="#" class="learn-more">
+                
+                <!-- On-Premises -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all">
+                    <div class="mb-4 text-blue-600">
+                        <i data-lucide="database" class="h-10 w-10"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">On-Premises</h3>
+                    <p class="text-gray-600 mb-4">
+                        Install on your own hardware for complete control and compliance with data residency requirements.
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium flex items-center gap-1 hover:gap-2 transition-all">
                         Learn more
-                        <span class="learn-more-icon">→</span>
+                        <i data-lucide="chevron-right" class="h-4 w-4"></i>
                     </a>
                 </div>
-                <div class="deployment-card fade-in">
-                    <div class="deployment-icon">🔒</div>
-                    <h3>VPC Deployment</h3>
-                    <p>Deploy within your Virtual Private Cloud for enhanced security and privacy while maintaining flexibility.</p>
-                    <a href="#" class="learn-more">
+                
+                <!-- VPC -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all">
+                    <div class="mb-4 text-blue-600">
+                        <i data-lucide="lock" class="h-10 w-10"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">VPC Deployment</h3>
+                    <p class="text-gray-600 mb-4">
+                        Deploy within your Virtual Private Cloud for enhanced security and privacy while maintaining flexibility.
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium flex items-center gap-1 hover:gap-2 transition-all">
                         Learn more
-                        <span class="learn-more-icon">→</span>
+                        <i data-lucide="chevron-right" class="h-4 w-4"></i>
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="cta-section">
-        <div class="container">
-            <h2 class="fade-in">Ready to Ensure Compliance for Your AI Systems?</h2>
-            <p class="fade-in">Get in touch with our team for a personalized demo and see how our platform can help your organization maintain regulatory integrity throughout the model lifecycle.</p>
-            <div class="cta-buttons fade-in">
-                <a href="#" class="cta-primary">Request Demo</a>
-                <a href="#" class="cta-secondary">Contact Sales</a>
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-gray-50 opacity-0 transition-opacity duration-1000">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Trusted by Industry Leaders</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    See what our customers say about Praesidium Compliance Systems
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">
+                            FT
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-bold">Financial Tech Inc.</h4>
+                            <p class="text-gray-600 text-sm">Director of AI Governance</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">
+                        "Praesidium has transformed our AI compliance processes. We're now able to identify potential issues before they affect our customers, saving us time and resources."
+                    </p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">
+                            HC
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-bold">HealthCare Solutions</h4>
+                            <p class="text-gray-600 text-sm">Chief Compliance Officer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">
+                        "With stringent HIPAA requirements, we needed a solution that could ensure our AI models maintain compliance. Praesidium delivers this with unprecedented visibility and control."
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>LLM Monitor</h3>
-                    <p>Governance for AI, simplified.</p>
+    <!-- CTA Section -->
+    <section 
+        id="contact" 
+        class="py-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white opacity-0 transition-opacity duration-1000"
+    >
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Ready to Ensure AI Compliance?</h2>
+            <p class="text-xl max-w-2xl mx-auto mb-8 opacity-90">
+                Get in touch with our team for a personalized demo and discover how our platform can help your organization maintain regulatory integrity.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="px-8 py-3 bg-white text-blue-600 rounded-full hover:bg-gray-100 transition-colors font-medium">
+                    Request Demo
+                </button>
+                <button class="px-8 py-3 bg-transparent border border-white text-white rounded-full hover:bg-white/10 transition-colors font-medium">
+                    Contact Sales
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="shield" class="h-6 w-6 text-blue-400"></i>
+                        <span class="text-lg font-bold">Praesidium Systems</span>
+                    </div>
+                    <p class="text-gray-400">
+                        AI Governance, simplified.
+                    </p>
                 </div>
-                <div class="footer-column">
-                    <h3>Product</h3>
-                    <ul class="footer-links">
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#how-it-works">How It Works</a></li>
-                        <li><a href="#deployment">Deployment</a></li>
-                        <li><a href="#">Pricing</a></li>
+                
+                <div>
+                    <h3 class="font-bold mb-4">Product</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#how-it-works" class="text-gray-400 hover:text-white transition-colors">How It Works</a></li>
+                        <li><a href="#deployment" class="text-gray-400 hover:text-white transition-colors">Deployment</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
                     </ul>
                 </div>
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">API Reference</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Webinars</a></li>
+                
+                <div>
+                    <h3 class="font-bold mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">API Reference</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Support</a></li>
                     </ul>
                 </div>
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                
+                <div>
+                    <h3 class="font-bold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="copyright">
-                &copy; 2025 LLM Monitor. All rights reserved.
+            
+            <div class="border-t border-gray-800 pt-8 mt-8 text-center text-gray-500 text-sm">
+                &copy; <span id="current-year"></span> Praesidium Compliance Systems Corporation. All rights reserved.
             </div>
         </div>
     </footer>
 
+    <!-- JavaScript -->
     <script>
-        // Construction banner animation
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Mobile menu toggle
+        function toggleMobileMenu(isOpen) {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (isOpen) {
+                mobileMenu.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+            }
+        }
+        
+        // Smooth scroll function
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                window.scrollTo({
+                    top: element.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                toggleMobileMenu(false);
+            }
+        }
+        
+        // Intersection Observer for animations
         document.addEventListener('DOMContentLoaded', function() {
-            const constructionBanner = document.querySelector('.construction-banner');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
             
-            // Add pulse animation to the banner
-            setInterval(() => {
-                constructionBanner.style.opacity = '0.8';
-                setTimeout(() => {
-                    constructionBanner.style.opacity = '1';
-                }, 500);
-            }, 3000);
-            
-            // Scroll animation
-            const fadeElements = document.querySelectorAll('.fade-in');
-            
-            const observer = new IntersectionObserver((entries) => {
+            const handleIntersect = (entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+                        entry.target.classList.add('opacity-100');
+                        entry.target.classList.remove('opacity-0');
                     }
                 });
-            }, {
-                threshold: 0.1
-            });
+            };
             
-            fadeElements.forEach(element => {
-                observer.observe(element);
-            });
+            const observer = new IntersectionObserver(handleIntersect, observerOptions);
             
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Close mobile menu if open
-                        document.querySelector('.mobile-menu').classList.remove('open');
-                    }
-                });
-            });
-            
-            // Mobile menu toggle
-            const mobileMenuButton = document.querySelector('.mobile-menu-button');
-            const mobileMenuCloseButton = document.querySelector('.mobile-menu-close');
-            const mobileMenu = document.querySelector('.mobile-menu');
-            
-            mobileMenuButton.addEventListener('click', function() {
-                mobileMenu.classList.add('open');
-            });
-            
-            mobileMenuCloseButton.addEventListener('click', function() {
-                mobileMenu.classList.remove('open');
+            document.querySelectorAll('section').forEach(section => {
+                if (section.id) {
+                    observer.observe(section);
+                }
             });
         });
     </script>
