@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praesidium Systems - AI Compliance Simplified</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .transition-opacity {
+            transition: opacity 1s ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="fixed w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i data-lucide="shield" class="h-8 w-8 text-blue-600"></i>
+                <span class="text-xl font-bold text-gray-900">Praesidium Systems</span>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-6">
+                <button onclick="scrollToSection('features')" class="text-gray-700 hover:text-blue-600 transition-colors">Features</button>
+                <button onclick="scrollToSection('how-it-works')" class="text-gray-700 hover:text-blue-600 transition-colors">How It Works</button>
+                <button onclick="scrollToSection('deployment')" class="text-gray-700 hover:text-blue-600 transition-colors">Deployment</button>
+                <button onclick="scrollToSection('contact')" class="px-5 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors">Contact Us</button>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <button 
+                onclick="toggleMobileMenu(true)" 
+                class="md:hidden text-gray-700"
+            >
+                <i data-lucide="menu" class="h-6 w-6"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 md:hidden hidden">
+        <div class="h-full w-64 bg-white p-6 flex flex-col shadow-lg">
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="shield" class="h-7 w-7 text-blue-600"></i>
+                    <span class="text-lg font-bold text-gray-900">Praesidium</span>
+                </div>
+                <button onclick="toggleMobileMenu(false)">
+                    <i data-lucide="x" class="h-6 w-6 text-gray-700"></i>
+                </button>
+            </div>
+            <nav class="flex flex-col gap-4">
+                <button 
+                    onclick="scrollToSection('features'); toggleMobileMenu(false);" 
+                    class="text-gray-700 hover:text-blue-600 transition-colors text-left py-2 border-b border-gray-100"
+                >
+                    Features
+                </button>
+                <button 
+                    onclick="scrollToSection('how-it-works'); toggleMobileMenu(false);" 
+                    class="text-gray-700 hover:text-blue-600 transition-colors text-left py-2 border-b border-gray-100"
+                >
+                    How It Works
+                </button>
+                <button 
+                    onclick="scrollToSection('deployment'); toggleMobileMenu(false);" 
+                    class="text-gray-700 hover:text-blue-600 transition-colors text-left py-2 border-b border-gray-100"
+                >
+                    Deployment
+                </button>
+                <button 
+                    onclick="scrollToSection('contact'); toggleMobileMenu(false);" 
+                    class="mt-4 px-5 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"
+                >
+                    Contact Us
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="md:w-1/2 space-y-6">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+                        AI Compliance <span class="text-blue-600">Simplified</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 max-w-lg">
+                        Monitor, audit, and ensure regulatory compliance for your AI models with our comprehensive governance platform.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button 
+                            onclick="scrollToSection('contact')"
+                            class="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                        >
+                            Request Demo
+                            <i data-lucide="chevron-right" class="h-5 w-5"></i>
+                        </button>
+                        <button 
+                            onclick="scrollToSection('features')"
+                            class="px-6 py-3 border border-blue-600 text-blue-600 rounded-full hover:bg-blue-50 transition-colors flex items-center justify-center"
+                        >
+                            Explore Features
+                        </button>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <img 
+                        src="/api/placeholder/600/400" 
+                        alt="AI Compliance Dashboard" 
+                        class="rounded-lg shadow-xl"
+                    >
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section 
+        id="features" 
+        class="py-20 bg-white opacity-0 transition-opacity duration-1000"
+    >
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Comprehensive AI Governance Platform</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    From hallucination detection to regulatory compliance, our platform offers end-to-end governance solutions.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
+                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
+                        <i data-lucide="search" class="h-6 w-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Hallucination Detection</h3>
+                    <p class="text-gray-600">
+                        Automatically identify and flag when your models generate inaccurate or fabricated information through advanced verification techniques.
+                    </p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
+                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
+                        <i data-lucide="shield" class="h-6 w-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Compliance Monitoring</h3>
+                    <p class="text-gray-600">
+                        Continuously track model outputs for alignment with industry regulations like GDPR, HIPAA, and your custom policies.
+                    </p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
+                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
+                        <i data-lucide="alert-triangle" class="h-6 w-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Agency Analysis</h3>
+                    <p class="text-gray-600">
+                        Detect and prevent situations where AI models overstate their capabilities or make unauthorized commitments.
+                    </p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
+                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
+                        <i data-lucide="bar-chart-2" class="h-6 w-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Performance Tracking</h3>
+                    <p class="text-gray-600">
+                        Comprehensive dashboards to track model performance, version history, and dataset lineage over time.
+                    </p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
+                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
+                        <i data-lucide="settings" class="h-6 w-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Customizable Frameworks</h3>
+                    <p class="text-gray-600">
+                        Define and enforce your own policies, regulatory frameworks, and documentation requirements.
+                    </p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
+                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
+                        <i data-lucide="code" class="h-6 w-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Seamless Integration</h3>
+                    <p class="text-gray-600">
+                        Connects with your existing ML ecosystem and major LLM providers for frictionless adoption.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section 
+        id="how-it-works" 
+        class="py-20 bg-blue-50 opacity-0 transition-opacity duration-1000"
+    >
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Our platform integrates seamlessly with your AI workflow in four simple steps
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto space-y-12">
+                <!-- Step 1 -->
+                <div class="flex flex-col md:flex-row gap-6 items-start">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xl">
+                        1
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Connect Your Models</h3>
+                        <p class="text-gray-600">
+                            Integrate with APIs from OpenAI, Claude, Gemini, or use lightweight local LLMs for cost efficiency. Our platform offers flexible connection options for all major providers.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="flex flex-col md:flex-row gap-6 items-start">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xl">
+                        2
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Define Your Governance Framework</h3>
+                        <p class="text-gray-600">
+                            Customize compliance requirements, regulatory frameworks, and policy documentation specific to your organization and industry needs.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="flex flex-col md:flex-row gap-6 items-start">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xl">
+                        3
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Monitor & Evaluate</h3>
+                        <p class="text-gray-600">
+                            Continuously track model performance, detect hallucinations, and identify compliance gaps in real-time through our advanced monitoring dashboard.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="flex flex-col md:flex-row gap-6 items-start">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xl">
+                        4
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Report & Improve</h3>
+                        <p class="text-gray-600">
+                            Generate comprehensive reports for stakeholders and use insights to improve model performance and compliance over time.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Integrations -->
+            <div class="mt-20">
+                <h3 class="text-xl font-bold text-gray-900 text-center mb-8">Works with all major AI providers</h3>
+                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+                    <div class="text-center opacity-70 hover:opacity-100 transition-opacity">
+                        <img src="/api/placeholder/100/40" alt="OpenAI" class="mx-auto">
+                        <span class="text-sm text-gray-600 mt-2 block">OpenAI</span>
+                    </div>
+                    <div class="text-center opacity-70 hover:opacity-100 transition-opacity">
+                        <img src="/api/placeholder/100/40" alt="Anthropic" class="mx-auto">
+                        <span class="text-sm text-gray-600 mt-2 block">Anthropic</span>
+                    </div>
+                    <div class="text-center opacity-70 hover:opacity-100 transition-opacity">
+                        <img src="/api/placeholder/100/40" alt="Google" class="mx-auto">
+                        <span class="text-sm text-gray-600 mt-2 block">Google</span>
+                    </div>
+                    <div class="text-center opacity-70 hover:opacity-100 transition-opacity">
+                        <img src="/api/placeholder/100/40" alt="AWS" class="mx-auto">
+                        <span class="text-sm text-gray-600 mt-2 block">AWS</span>
+                    </div>
+                    <div class="text-center opacity-70 hover:opacity-100 transition-opacity">
+                        <img src="/api/placeholder/100/40" alt="Azure" class="mx-auto">
+                        <span class="text-sm text-gray-600 mt-2 block">Azure</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deployment Section -->
+    <section 
+        id="deployment" 
+        class="py-20 bg-white opacity-0 transition-opacity duration-1000"
+    >
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Flexible Deployment Options</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Deploy our platform wherever it makes the most sense for your organization
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Cloud -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all">
+                    <div class="mb-4 text-blue-600">
+                        <i data-lucide="server" class="h-10 w-10"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Cloud Deployment</h3>
+                    <p class="text-gray-600 mb-4">
+                        Deploy on AWS, Azure, or Google Cloud with our managed service for maximum convenience and scalability.
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium flex items-center gap-1 hover:gap-2 transition-all">
+                        Learn more
+                        <i data-lucide="chevron-right" class="h-4 w-4"></i>
+                    </a>
+                </div>
+                
+                <!-- On-Premises -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all">
+                    <div class="mb-4 text-blue-600">
+                        <i data-lucide="database" class="h-10 w-10"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">On-Premises</h3>
+                    <p class="text-gray-600 mb-4">
+                        Install on your own hardware for complete control and compliance with data residency requirements.
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium flex items-center gap-1 hover:gap-2 transition-all">
+                        Learn more
+                        <i data-lucide="chevron-right" class="h-4 w-4"></i>
+                    </a>
+                </div>
+                
+                <!-- VPC -->
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all">
+                    <div class="mb-4 text-blue-600">
+                        <i data-lucide="lock" class="h-10 w-10"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">VPC Deployment</h3>
+                    <p class="text-gray-600 mb-4">
+                        Deploy within your Virtual Private Cloud for enhanced security and privacy while maintaining flexibility.
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium flex items-center gap-1 hover:gap-2 transition-all">
+                        Learn more
+                        <i data-lucide="chevron-right" class="h-4 w-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-gray-50 opacity-0 transition-opacity duration-1000">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Trusted by Industry Leaders</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    See what our customers say about Praesidium Compliance Systems
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">
+                            FT
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-bold">Financial Tech Inc.</h4>
+                            <p class="text-gray-600 text-sm">Director of AI Governance</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">
+                        "Praesidium has transformed our AI compliance processes. We're now able to identify potential issues before they affect our customers, saving us time and resources."
+                    </p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">
+                            HC
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-bold">HealthCare Solutions</h4>
+                            <p class="text-gray-600 text-sm">Chief Compliance Officer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">
+                        "With stringent HIPAA requirements, we needed a solution that could ensure our AI models maintain compliance. Praesidium delivers this with unprecedented visibility and control."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section 
+        id="contact" 
+        class="py-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white opacity-0 transition-opacity duration-1000"
+    >
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Ready to Ensure AI Compliance?</h2>
+            <p class="text-xl max-w-2xl mx-auto mb-8 opacity-90">
+                Get in touch with our team for a personalized demo and discover how our platform can help your organization maintain regulatory integrity.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="px-8 py-3 bg-white text-blue-600 rounded-full hover:bg-gray-100 transition-colors font-medium">
+                    Request Demo
+                </button>
+                <button class="px-8 py-3 bg-transparent border border-white text-white rounded-full hover:bg-white/10 transition-colors font-medium">
+                    Contact Sales
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="shield" class="h-6 w-6 text-blue-400"></i>
+                        <span class="text-lg font-bold">Praesidium Systems</span>
+                    </div>
+                    <p class="text-gray-400">
+                        AI Governance, simplified.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold mb-4">Product</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#how-it-works" class="text-gray-400 hover:text-white transition-colors">How It Works</a></li>
+                        <li><a href="#deployment" class="text-gray-400 hover:text-white transition-colors">Deployment</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">API Reference</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Support</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 mt-8 text-center text-gray-500 text-sm">
+                &copy; <span id="current-year"></span> Praesidium Compliance Systems Corporation. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Mobile menu toggle
+        function toggleMobileMenu(isOpen) {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (isOpen) {
+                mobileMenu.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+            }
+        }
+        
+        // Smooth scroll function
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                window.scrollTo({
+                    top: element.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                toggleMobileMenu(false);
+            }
+        }
+        
+        // Intersection Observer for animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const handleIntersect = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100');
+                        entry.target.classList.remove('opacity-0');
+                    }
+                });
+            };
+            
+            const observer = new IntersectionObserver(handleIntersect, observerOptions);
+            
+            document.querySelectorAll('section').forEach(section => {
+                if (section.id) {
+                    observer.observe(section);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
