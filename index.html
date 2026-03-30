@@ -97,8 +97,8 @@
 <body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary">
     <!-- Top Navigation Bar -->
     <nav class="fixed top-0 w-full z-50 bg-[#0e0e0e]/60 backdrop-blur-xl border-b border-outline-variant/10">
-        <div class="flex justify-between items-center max-w-[1400px] mx-auto px-8 h-20">
-            <div class="text-lg font-bold tracking-[-0.04em] text-zinc-100 uppercase">
+        <div class="flex justify-between items-center max-w-[1400px] mx-auto px-6 md:px-8 h-20">
+            <div class="text-lg font-bold tracking-[-0.04em] text-zinc-100 uppercase z-50 relative">
                 ARJAV DESAI
             </div>
             <div class="hidden md:flex items-center gap-12 font-['Inter'] tracking-tight font-medium text-sm">
@@ -108,7 +108,22 @@
                 <a class="nav-link text-zinc-500 hover:text-zinc-100 transition-colors duration-300" href="#contact">Contact</a>
             </div>
             <a href="Arjav_Desai.pdf" target="_blank"
-                class="bg-primary text-on-primary px-6 py-2.5 rounded text-sm font-semibold tracking-tight transition-transform active:scale-[0.98]">
+                class="hidden md:inline-flex bg-primary text-on-primary px-6 py-2.5 rounded text-sm font-semibold tracking-tight transition-transform active:scale-[0.98]">
+                Resume
+            </a>
+            <button id="mobile-menu-btn" class="md:hidden text-zinc-100 hover:text-primary transition-colors focus:outline-none p-2 z-50 relative">
+                <span class="material-symbols-outlined text-2xl" id="menu-icon">menu</span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed inset-0 top-20 bg-[#0e0e0e]/98 backdrop-blur-2xl z-40 flex flex-col items-center py-16 gap-10 translate-x-full transition-transform duration-500 ease-in-out md:hidden border-t border-outline-variant/10 h-screen">
+            <a class="mobile-nav-link text-3xl text-zinc-300 hover:text-primary transition-colors font-semibold tracking-tight" href="#work">Projects</a>
+            <a class="mobile-nav-link text-3xl text-zinc-300 hover:text-primary transition-colors font-semibold tracking-tight" href="#stack">Stack</a>
+            <a class="mobile-nav-link text-3xl text-zinc-300 hover:text-primary transition-colors font-semibold tracking-tight" href="#experience">Experience</a>
+            <a class="mobile-nav-link text-3xl text-zinc-300 hover:text-primary transition-colors font-semibold tracking-tight" href="#contact">Contact</a>
+            <a href="Arjav_Desai.pdf" target="_blank"
+                class="mobile-nav-link mt-8 bg-primary text-on-primary px-10 py-4 rounded-lg text-lg font-bold tracking-widest uppercase hover:bg-white transition-all duration-300">
                 Resume
             </a>
         </div>
@@ -122,21 +137,21 @@
                     <img alt="" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRAEpJJ-jVA5NLd4ow1dhELZpCj_w_8bJROYSKpMGzvLKAvgV14Heo0XHSxEpPDh-z-O08tzX5Jv2XNiWRKgavciExLWudqT7h7GyvgwNBNfckcaA6Omwfii4Vpn0jzC8__pWL6heWVQBQPtemNkBOzQOstuasaTAOGuQL1bLNOXMgia6LJeCI6RMqonLMVYNLdL6T28c2ea2a476yn4QOAHqe_Gx5wH39jWc2veiSWfF3FXnE67TFFFT7xNJWvrT9EXFqjB6vELSv" />
                 </div>
             </div>
-            <div class="relative z-20 max-w-[1400px] mx-auto px-8 w-full">
+            <div class="relative z-20 max-w-[1400px] mx-auto px-6 md:px-8 w-full">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
                     <div class="lg:col-span-8">
                         <div class="label-sm text-[0.6875rem] uppercase tracking-[0.2em] text-secondary mb-8 block">
                             SOFTWARE ENGINEER & IT PROJECT MANAGER
                         </div>
                         <h1 class="text-5xl md:text-7xl lg:text-[6rem] font-black tracking-[-0.06em] leading-[0.9] text-zinc-100 mb-12">
-                            ARJAV <span class="text-outline text-transparent" style="-webkit-text-stroke: 1px #484848;">DESAI</span>
+                            ARJAV <span class="text-outline text-transparent block md:inline" style="-webkit-text-stroke: 1px #484848;">DESAI</span>
                         </h1>
                         <p class="text-xl max-w-2xl text-secondary-dim font-light leading-relaxed mb-10">Architecting high-performance distributed systems, AI-native platforms, and leading full-lifecycle enterprise SAP integrations.</p>
                         <div class="flex flex-wrap gap-4 items-center">
-                            <a href="#work" class="bg-primary text-on-primary px-10 py-5 rounded-lg text-sm font-bold tracking-widest uppercase hover:bg-white transition-all duration-300">
+                            <a href="#work" class="w-full md:w-auto text-center bg-primary text-on-primary px-10 py-5 rounded-lg text-sm font-bold tracking-widest uppercase hover:bg-white transition-all duration-300">
                                 View Projects
                             </a>
-                            <a href="#stack" class="px-10 py-5 rounded-lg text-sm font-bold tracking-widest uppercase border border-outline-variant/30 hover:bg-surface-container-highest transition-all duration-300 flex items-center gap-3">
+                            <a href="#stack" class="w-full md:w-auto text-center px-10 py-5 rounded-lg text-sm font-bold tracking-widest uppercase border border-outline-variant/30 hover:bg-surface-container-highest transition-all duration-300 flex items-center justify-center gap-3">
                                 <span class="material-symbols-outlined">data_object</span>
                                 Technical Stack
                             </a>
@@ -170,8 +185,8 @@
         </section>
 
         <!-- Technical Stack Grid -->
-        <section id="stack" class="reveal py-32 bg-surface-container-lowest">
-            <div class="max-w-[1400px] mx-auto px-8">
+        <section id="stack" class="reveal py-20 md:py-32 bg-surface-container-lowest">
+            <div class="max-w-[1400px] mx-auto px-6 md:px-8">
                 <div class="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
                     <h2 class="text-4xl font-bold tracking-tight text-zinc-100">The Modern Stack</h2>
                     <p class="max-w-md text-secondary-dim text-sm leading-relaxed">
@@ -240,7 +255,7 @@
         </section>
 
         <!-- Experience Timeline -->
-        <section id="experience" class="reveal bg-surface py-32 px-8 overflow-hidden border-b border-surface-container">
+        <section id="experience" class="reveal bg-surface py-20 md:py-32 px-6 md:px-8 overflow-hidden border-b border-surface-container">
             <div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-start">
                 <div>
                     <span class="font-label text-[0.6875rem] uppercase tracking-[0.1em] text-secondary mb-6 block">Career Journey</span>
@@ -301,8 +316,8 @@
         </section>
 
         <!-- Project Presentation Row -->
-        <section id="work" class="reveal py-32 bg-surface-container-lowest">
-            <div class="max-w-[1400px] mx-auto px-8 space-y-32">
+        <section id="work" class="reveal py-20 md:py-32 bg-surface-container-lowest">
+            <div class="max-w-[1400px] mx-auto px-6 md:px-8 space-y-20 md:space-y-32">
                 <!-- Project 1 -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
                     <div class="order-2 lg:order-1 relative">
@@ -396,8 +411,8 @@
         </section>
 
         <!-- CTA / Contact Section -->
-        <section id="contact" class="reveal max-w-[1400px] mx-auto px-8 py-32 border-t border-surface-container">
-            <div class="bg-surface-container-low p-10 md:p-16 rounded-2xl relative overflow-hidden">
+        <section id="contact" class="reveal max-w-[1400px] mx-auto px-6 md:px-8 py-20 md:py-32 border-t border-surface-container">
+            <div class="bg-surface-container-low p-8 md:p-16 rounded-2xl relative overflow-hidden">
                 <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent z-0"></div>
                 <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <div>
@@ -440,7 +455,7 @@
 
     <!-- Footer -->
     <footer class="bg-[#000000] w-full py-16">
-        <div class="flex flex-col md:flex-row justify-between items-center max-w-[1400px] mx-auto px-8 gap-8">
+        <div class="flex flex-col md:flex-row justify-between items-center max-w-[1400px] mx-auto px-6 md:px-8 gap-6 md:gap-8 text-center md:text-left">
             <div class="text-zinc-100 font-bold uppercase tracking-widest text-sm">
                 ARJAV DESAI
             </div>
@@ -501,6 +516,36 @@
             }, navObserverOptions);
 
             sections.forEach(sec => navObserver.observe(sec));
+
+            // Mobile Menu Toggle Logic
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+            const menuIcon = document.getElementById('menu-icon');
+            let isMenuOpen = false;
+
+            const closeMenu = () => {
+                if (!isMenuOpen) return;
+                isMenuOpen = false;
+                mobileMenu.classList.remove('translate-x-0');
+                mobileMenu.classList.add('translate-x-full');
+                menuIcon.textContent = 'menu';
+            };
+
+            mobileMenuBtn?.addEventListener('click', () => {
+                isMenuOpen = !isMenuOpen;
+                if (isMenuOpen) {
+                    mobileMenu.classList.remove('translate-x-full');
+                    mobileMenu.classList.add('translate-x-0');
+                    menuIcon.textContent = 'close';
+                } else {
+                    closeMenu();
+                }
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
         });
     </script>
 </body>
