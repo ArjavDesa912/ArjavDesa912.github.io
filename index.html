@@ -1,548 +1,506 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Praesidium Systems - AI Compliance Simplified</title>
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-background": "#e7e5e4",
+                        "tertiary": "#f0f3ff",
+                        "secondary-fixed-dim": "#c6d6ec",
+                        "primary-dim": "#b8b9b9",
+                        "surface-tint": "#c6c6c7",
+                        "error": "#ee7d77",
+                        "on-primary-container": "#d0d0d0",
+                        "on-error-container": "#ff9993",
+                        "tertiary-dim": "#ccd7ef",
+                        "primary": "#c6c6c7",
+                        "secondary-fixed": "#d4e4fa",
+                        "surface-container-low": "#131313",
+                        "background": "#0e0e0e",
+                        "surface-container-highest": "#252626",
+                        "error-dim": "#bb5551",
+                        "secondary-dim": "#909fb4",
+                        "on-tertiary-container": "#495468",
+                        "inverse-on-surface": "#565554",
+                        "on-surface": "#e7e5e4",
+                        "on-tertiary": "#515c70",
+                        "secondary-container": "#2e3c4e",
+                        "on-primary-fixed": "#3e4040",
+                        "surface-dim": "#0e0e0e",
+                        "secondary": "#909fb4",
+                        "on-tertiary-fixed": "#374155",
+                        "primary-container": "#454747",
+                        "on-secondary": "#122131",
+                        "on-secondary-container": "#b1c0d6",
+                        "primary-fixed-dim": "#d4d4d4",
+                        "primary-fixed": "#e2e2e2",
+                        "on-secondary-fixed-variant": "#4e5d6f",
+                        "surface-container-high": "#1f2020",
+                        "error-container": "#7f2927",
+                        "outline-variant": "#484848",
+                        "inverse-primary": "#5e5f60",
+                        "on-primary": "#3f4041",
+                        "outline": "#767575",
+                        "surface-container": "#191a1a",
+                        "tertiary-fixed-dim": "#ccd7ef",
+                        "on-tertiary-fixed-variant": "#535e72",
+                        "inverse-surface": "#fcf8f8",
+                        "on-surface-variant": "#acabaa",
+                        "surface-bright": "#2c2c2c",
+                        "on-secondary-fixed": "#324052",
+                        "tertiary-container": "#dae6fe",
+                        "surface-variant": "#252626",
+                        "on-primary-fixed-variant": "#5a5c5c",
+                        "tertiary-fixed": "#dae6fe",
+                        "on-error": "#490106",
+                        "surface-container-lowest": "#000000",
+                        "surface": "#0e0e0e"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
         }
-        
-        .transition-opacity {
-            transition: opacity 1s ease-in-out;
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .text-glow { text-shadow: 0 0 20px rgba(198, 198, 199, 0.2); }
+        .tonal-transition-via-blur { backdrop-filter: blur(12px); border-bottom: none !important; }
+        .glass-panel { background: rgba(44, 44, 44, 0.6); backdrop-filter: blur(12px); }
+        html { scroll-behavior: smooth; }
+
+        /* Animation classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
     </style>
 </head>
-<body class="min-h-screen bg-gray-50 font-sans">
-    <!-- Header -->
-    <header class="fixed w-full bg-white shadow-md z-50">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <i data-lucide="shield" class="h-8 w-8 text-blue-600"></i>
-                <span class="text-xl font-bold text-gray-900">Praesidium Systems</span>
-            </div>
-            
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex items-center gap-6">
-                <button onclick="scrollToSection('features')" class="text-gray-700 hover:text-blue-600 transition-colors">Features</button>
-                <button onclick="scrollToSection('how-it-works')" class="text-gray-700 hover:text-blue-600 transition-colors">How It Works</button>
-                <button onclick="scrollToSection('deployment')" class="text-gray-700 hover:text-blue-600 transition-colors">Deployment</button>
-                <button onclick="scrollToSection('contact')" class="px-5 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors">Contact Us</button>
-            </nav>
-            
-            <!-- Mobile Menu Button -->
-            <button 
-                onclick="toggleMobileMenu(true)" 
-                class="md:hidden text-gray-700"
-            >
-                <i data-lucide="menu" class="h-6 w-6"></i>
-            </button>
-        </div>
-    </header>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 md:hidden hidden">
-        <div class="h-full w-64 bg-white p-6 flex flex-col shadow-lg">
-            <div class="flex justify-between items-center mb-6">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="shield" class="h-7 w-7 text-blue-600"></i>
-                    <span class="text-lg font-bold text-gray-900">Praesidium</span>
-                </div>
-                <button onclick="toggleMobileMenu(false)">
-                    <i data-lucide="x" class="h-6 w-6 text-gray-700"></i>
-                </button>
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary">
+    <!-- Top Navigation Bar -->
+    <nav class="fixed top-0 w-full z-50 bg-[#0e0e0e]/60 backdrop-blur-xl border-b border-outline-variant/10">
+        <div class="flex justify-between items-center max-w-[1400px] mx-auto px-8 h-20">
+            <div class="text-lg font-bold tracking-[-0.04em] text-zinc-100 uppercase">
+                ARJAV DESAI
             </div>
-            <nav class="flex flex-col gap-4">
-                <button 
-                    onclick="scrollToSection('features'); toggleMobileMenu(false);" 
-                    class="text-gray-700 hover:text-blue-600 transition-colors text-left py-2 border-b border-gray-100"
-                >
-                    Features
-                </button>
-                <button 
-                    onclick="scrollToSection('how-it-works'); toggleMobileMenu(false);" 
-                    class="text-gray-700 hover:text-blue-600 transition-colors text-left py-2 border-b border-gray-100"
-                >
-                    How It Works
-                </button>
-                <button 
-                    onclick="scrollToSection('deployment'); toggleMobileMenu(false);" 
-                    class="text-gray-700 hover:text-blue-600 transition-colors text-left py-2 border-b border-gray-100"
-                >
-                    Deployment
-                </button>
-                <button 
-                    onclick="scrollToSection('contact'); toggleMobileMenu(false);" 
-                    class="mt-4 px-5 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"
-                >
-                    Contact Us
-                </button>
-            </nav>
+            <div class="hidden md:flex items-center gap-12 font-['Inter'] tracking-tight font-medium text-sm">
+                <a class="nav-link text-zinc-500 hover:text-zinc-100 transition-colors duration-300" href="#work">Projects</a>
+                <a class="nav-link text-zinc-500 hover:text-zinc-100 transition-colors duration-300" href="#stack">Stack</a>
+                <a class="nav-link text-zinc-500 hover:text-zinc-100 transition-colors duration-300" href="#experience">Experience</a>
+                <a class="nav-link text-zinc-500 hover:text-zinc-100 transition-colors duration-300" href="#contact">Contact</a>
+            </div>
+            <a href="Arjav_Desai.pdf" target="_blank"
+                class="bg-primary text-on-primary px-6 py-2.5 rounded text-sm font-semibold tracking-tight transition-transform active:scale-[0.98]">
+                Resume
+            </a>
         </div>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="pt-32 pb-20 bg-gradient-to-br from-blue-50 to-indigo-50">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
-                <div class="md:w-1/2 space-y-6">
-                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-                        AI Compliance <span class="text-blue-600">Simplified</span>
-                    </h1>
-                    <p class="text-xl text-gray-600 max-w-lg">
-                        Monitor, audit, and ensure regulatory compliance for your AI models with our comprehensive governance platform.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <button 
-                            onclick="scrollToSection('contact')"
-                            class="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
-                        >
-                            Request Demo
-                            <i data-lucide="chevron-right" class="h-5 w-5"></i>
-                        </button>
-                        <button 
-                            onclick="scrollToSection('features')"
-                            class="px-6 py-3 border border-blue-600 text-blue-600 rounded-full hover:bg-blue-50 transition-colors flex items-center justify-center"
-                        >
-                            Explore Features
-                        </button>
-                    </div>
-                </div>
-                <div class="md:w-1/2">
-                    <img 
-                        src="/api/placeholder/600/400" 
-                        alt="AI Compliance Dashboard" 
-                        class="rounded-lg shadow-xl"
-                    >
+    </nav>
+    <main>
+        <!-- Hero Section -->
+        <section class="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20">
+            <div class="absolute inset-0 z-0">
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-background/80 to-background z-10"></div>
+                <div class="w-full h-full opacity-40 mix-blend-luminosity">
+                    <img alt="" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRAEpJJ-jVA5NLd4ow1dhELZpCj_w_8bJROYSKpMGzvLKAvgV14Heo0XHSxEpPDh-z-O08tzX5Jv2XNiWRKgavciExLWudqT7h7GyvgwNBNfckcaA6Omwfii4Vpn0jzC8__pWL6heWVQBQPtemNkBOzQOstuasaTAOGuQL1bLNOXMgia6LJeCI6RMqonLMVYNLdL6T28c2ea2a476yn4QOAHqe_Gx5wH39jWc2veiSWfF3FXnE67TFFFT7xNJWvrT9EXFqjB6vELSv" />
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section 
-        id="features" 
-        class="py-20 bg-white opacity-0 transition-opacity duration-1000"
-    >
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Comprehensive AI Governance Platform</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    From hallucination detection to regulatory compliance, our platform offers end-to-end governance solutions.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
-                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
-                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
-                        <i data-lucide="search" class="h-6 w-6"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Hallucination Detection</h3>
-                    <p class="text-gray-600">
-                        Automatically identify and flag when your models generate inaccurate or fabricated information through advanced verification techniques.
-                    </p>
-                </div>
-                
-                <!-- Feature 2 -->
-                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
-                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
-                        <i data-lucide="shield" class="h-6 w-6"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Compliance Monitoring</h3>
-                    <p class="text-gray-600">
-                        Continuously track model outputs for alignment with industry regulations like GDPR, HIPAA, and your custom policies.
-                    </p>
-                </div>
-                
-                <!-- Feature 3 -->
-                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
-                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
-                        <i data-lucide="alert-triangle" class="h-6 w-6"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Agency Analysis</h3>
-                    <p class="text-gray-600">
-                        Detect and prevent situations where AI models overstate their capabilities or make unauthorized commitments.
-                    </p>
-                </div>
-                
-                <!-- Feature 4 -->
-                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
-                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
-                        <i data-lucide="bar-chart-2" class="h-6 w-6"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Performance Tracking</h3>
-                    <p class="text-gray-600">
-                        Comprehensive dashboards to track model performance, version history, and dataset lineage over time.
-                    </p>
-                </div>
-                
-                <!-- Feature 5 -->
-                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
-                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
-                        <i data-lucide="settings" class="h-6 w-6"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Customizable Frameworks</h3>
-                    <p class="text-gray-600">
-                        Define and enforce your own policies, regulatory frameworks, and documentation requirements.
-                    </p>
-                </div>
-                
-                <!-- Feature 6 -->
-                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
-                    <div class="inline-block p-3 bg-blue-100 rounded-lg text-blue-600 mb-4">
-                        <i data-lucide="code" class="h-6 w-6"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Seamless Integration</h3>
-                    <p class="text-gray-600">
-                        Connects with your existing ML ecosystem and major LLM providers for frictionless adoption.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section 
-        id="how-it-works" 
-        class="py-20 bg-blue-50 opacity-0 transition-opacity duration-1000"
-    >
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Our platform integrates seamlessly with your AI workflow in four simple steps
-                </p>
-            </div>
-            
-            <div class="max-w-4xl mx-auto space-y-12">
-                <!-- Step 1 -->
-                <div class="flex flex-col md:flex-row gap-6 items-start">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xl">
-                        1
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Connect Your Models</h3>
-                        <p class="text-gray-600">
-                            Integrate with APIs from OpenAI, Claude, Gemini, or use lightweight local LLMs for cost efficiency. Our platform offers flexible connection options for all major providers.
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- Step 2 -->
-                <div class="flex flex-col md:flex-row gap-6 items-start">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xl">
-                        2
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Define Your Governance Framework</h3>
-                        <p class="text-gray-600">
-                            Customize compliance requirements, regulatory frameworks, and policy documentation specific to your organization and industry needs.
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- Step 3 -->
-                <div class="flex flex-col md:flex-row gap-6 items-start">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xl">
-                        3
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Monitor & Evaluate</h3>
-                        <p class="text-gray-600">
-                            Continuously track model performance, detect hallucinations, and identify compliance gaps in real-time through our advanced monitoring dashboard.
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- Step 4 -->
-                <div class="flex flex-col md:flex-row gap-6 items-start">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xl">
-                        4
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Report & Improve</h3>
-                        <p class="text-gray-600">
-                            Generate comprehensive reports for stakeholders and use insights to improve model performance and compliance over time.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Integrations -->
-            <div class="mt-20">
-                <h3 class="text-xl font-bold text-gray-900 text-center mb-8">Works with all major AI providers</h3>
-                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
-                    <div class="text-center opacity-70 hover:opacity-100 transition-opacity">
-                        <img src="/api/placeholder/100/40" alt="OpenAI" class="mx-auto">
-                        <span class="text-sm text-gray-600 mt-2 block">OpenAI</span>
-                    </div>
-                    <div class="text-center opacity-70 hover:opacity-100 transition-opacity">
-                        <img src="/api/placeholder/100/40" alt="Anthropic" class="mx-auto">
-                        <span class="text-sm text-gray-600 mt-2 block">Anthropic</span>
-                    </div>
-                    <div class="text-center opacity-70 hover:opacity-100 transition-opacity">
-                        <img src="/api/placeholder/100/40" alt="Google" class="mx-auto">
-                        <span class="text-sm text-gray-600 mt-2 block">Google</span>
-                    </div>
-                    <div class="text-center opacity-70 hover:opacity-100 transition-opacity">
-                        <img src="/api/placeholder/100/40" alt="AWS" class="mx-auto">
-                        <span class="text-sm text-gray-600 mt-2 block">AWS</span>
-                    </div>
-                    <div class="text-center opacity-70 hover:opacity-100 transition-opacity">
-                        <img src="/api/placeholder/100/40" alt="Azure" class="mx-auto">
-                        <span class="text-sm text-gray-600 mt-2 block">Azure</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Deployment Section -->
-    <section 
-        id="deployment" 
-        class="py-20 bg-white opacity-0 transition-opacity duration-1000"
-    >
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Flexible Deployment Options</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Deploy our platform wherever it makes the most sense for your organization
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <!-- Cloud -->
-                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all">
-                    <div class="mb-4 text-blue-600">
-                        <i data-lucide="server" class="h-10 w-10"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Cloud Deployment</h3>
-                    <p class="text-gray-600 mb-4">
-                        Deploy on AWS, Azure, or Google Cloud with our managed service for maximum convenience and scalability.
-                    </p>
-                    <a href="#contact" class="text-blue-600 font-medium flex items-center gap-1 hover:gap-2 transition-all">
-                        Learn more
-                        <i data-lucide="chevron-right" class="h-4 w-4"></i>
-                    </a>
-                </div>
-                
-                <!-- On-Premises -->
-                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all">
-                    <div class="mb-4 text-blue-600">
-                        <i data-lucide="database" class="h-10 w-10"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">On-Premises</h3>
-                    <p class="text-gray-600 mb-4">
-                        Install on your own hardware for complete control and compliance with data residency requirements.
-                    </p>
-                    <a href="#contact" class="text-blue-600 font-medium flex items-center gap-1 hover:gap-2 transition-all">
-                        Learn more
-                        <i data-lucide="chevron-right" class="h-4 w-4"></i>
-                    </a>
-                </div>
-                
-                <!-- VPC -->
-                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all">
-                    <div class="mb-4 text-blue-600">
-                        <i data-lucide="lock" class="h-10 w-10"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">VPC Deployment</h3>
-                    <p class="text-gray-600 mb-4">
-                        Deploy within your Virtual Private Cloud for enhanced security and privacy while maintaining flexibility.
-                    </p>
-                    <a href="#contact" class="text-blue-600 font-medium flex items-center gap-1 hover:gap-2 transition-all">
-                        Learn more
-                        <i data-lucide="chevron-right" class="h-4 w-4"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="py-20 bg-gray-50 opacity-0 transition-opacity duration-1000">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Trusted by Industry Leaders</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    See what our customers say about Praesidium Compliance Systems
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <!-- Testimonial 1 -->
-                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">
-                            FT
+            <div class="relative z-20 max-w-[1400px] mx-auto px-8 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+                    <div class="lg:col-span-8">
+                        <div class="label-sm text-[0.6875rem] uppercase tracking-[0.2em] text-secondary mb-8 block">
+                            SOFTWARE ENGINEER & IT PROJECT MANAGER
                         </div>
-                        <div class="ml-4">
-                            <h4 class="font-bold">Financial Tech Inc.</h4>
-                            <p class="text-gray-600 text-sm">Director of AI Governance</p>
+                        <h1 class="text-5xl md:text-7xl lg:text-[6rem] font-black tracking-[-0.06em] leading-[0.9] text-zinc-100 mb-12">
+                            ARJAV <span class="text-outline text-transparent" style="-webkit-text-stroke: 1px #484848;">DESAI</span>
+                        </h1>
+                        <p class="text-xl max-w-2xl text-secondary-dim font-light leading-relaxed mb-10">Architecting high-performance distributed systems, AI-native platforms, and leading full-lifecycle enterprise SAP integrations.</p>
+                        <div class="flex flex-wrap gap-4 items-center">
+                            <a href="#work" class="bg-primary text-on-primary px-10 py-5 rounded-lg text-sm font-bold tracking-widest uppercase hover:bg-white transition-all duration-300">
+                                View Projects
+                            </a>
+                            <a href="#stack" class="px-10 py-5 rounded-lg text-sm font-bold tracking-widest uppercase border border-outline-variant/30 hover:bg-surface-container-highest transition-all duration-300 flex items-center gap-3">
+                                <span class="material-symbols-outlined">data_object</span>
+                                Technical Stack
+                            </a>
                         </div>
                     </div>
-                    <p class="text-gray-700">
-                        "Praesidium has transformed our AI compliance processes. We're now able to identify potential issues before they affect our customers, saving us time and resources."
-                    </p>
-                </div>
-                
-                <!-- Testimonial 2 -->
-                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">
-                            HC
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-bold">HealthCare Solutions</h4>
-                            <p class="text-gray-600 text-sm">Chief Compliance Officer</p>
+                    <div class="lg:col-span-4 lg:pl-12 pb-4">
+                        <div class="space-y-12">
+                            <div>
+                                <h3 class="label-sm text-[0.6875rem] uppercase tracking-[0.1em] text-secondary-dim mb-4">Core Competencies</h3>
+                                <div class="flex flex-col gap-3">
+                                    <div class="flex items-center justify-between group">
+                                        <span class="text-sm font-medium text-zinc-300">AI / Distributed Systems</span>
+                                        <span class="text-[0.6875rem] text-secondary tabular-nums">01</span>
+                                    </div>
+                                    <div class="h-px bg-outline-variant/10 w-full"></div>
+                                    <div class="flex items-center justify-between group">
+                                        <span class="text-sm font-medium text-zinc-300">Enterprise SAP ERP</span>
+                                        <span class="text-[0.6875rem] text-secondary tabular-nums">02</span>
+                                    </div>
+                                    <div class="h-px bg-outline-variant/10 w-full"></div>
+                                    <div class="flex items-center justify-between group">
+                                        <span class="text-sm font-medium text-zinc-300">Cloud Architecture (GCP/AWS)</span>
+                                        <span class="text-[0.6875rem] text-secondary tabular-nums">03</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <p class="text-gray-700">
-                        "With stringent HIPAA requirements, we needed a solution that could ensure our AI models maintain compliance. Praesidium delivers this with unprecedented visibility and control."
-                    </p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- CTA Section -->
-    <section 
-        id="contact" 
-        class="py-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white opacity-0 transition-opacity duration-1000"
-    >
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold mb-6">Ready to Ensure AI Compliance?</h2>
-            <p class="text-xl max-w-2xl mx-auto mb-8 opacity-90">
-                Get in touch with our team for a personalized demo and discover how our platform can help your organization maintain regulatory integrity.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button class="px-8 py-3 bg-white text-blue-600 rounded-full hover:bg-gray-100 transition-colors font-medium">
-                    Request Demo
-                </button>
-                <button class="px-8 py-3 bg-transparent border border-white text-white rounded-full hover:bg-white/10 transition-colors font-medium">
-                    Contact Sales
-                </button>
+        <!-- Technical Stack Grid -->
+        <section id="stack" class="reveal py-32 bg-surface-container-lowest">
+            <div class="max-w-[1400px] mx-auto px-8">
+                <div class="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
+                    <h2 class="text-4xl font-bold tracking-tight text-zinc-100">The Modern Stack</h2>
+                    <p class="max-w-md text-secondary-dim text-sm leading-relaxed">
+                        Precision engineering requires the right tools. I specialize in high-performance languages and enterprise-grade integration ecosystems.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Python Card -->
+                    <div class="bg-surface-container p-10 rounded-lg group hover:bg-surface-bright transition-all duration-500 flex flex-col justify-between h-80">
+                        <div class="flex justify-between items-start">
+                            <span class="material-symbols-outlined text-4xl text-primary">data_object</span>
+                            <span class="text-[0.6875rem] uppercase tracking-widest text-secondary/50">Core</span>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-zinc-100 mb-2">Python</h3>
+                            <p class="text-xs text-secondary-dim uppercase tracking-widest">Scalable Scripting &amp; AI</p>
+                        </div>
+                    </div>
+                    <!-- Go & Java Card -->
+                    <div class="bg-surface-container p-10 rounded-lg group hover:bg-surface-bright transition-all duration-500 flex flex-col justify-between h-80">
+                        <div class="flex justify-between items-start">
+                            <span class="material-symbols-outlined text-4xl text-secondary">terminal</span>
+                            <span class="text-[0.6875rem] uppercase tracking-widest text-secondary/50">High Perf</span>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-zinc-100 mb-2">Go &amp; Java</h3>
+                            <p class="text-xs text-secondary-dim uppercase tracking-widest">Concurrency &amp; Systems</p>
+                        </div>
+                    </div>
+                    <!-- SAP Card -->
+                    <div class="md:col-span-2 bg-primary p-12 rounded-lg group transition-all duration-500 flex flex-col justify-between h-80 relative overflow-hidden">
+                        <div class="relative z-10 flex flex-col h-full justify-between">
+                            <div class="flex justify-between items-start">
+                                <span class="material-symbols-outlined text-4xl text-on-primary">corporate_fare</span>
+                                <span class="text-[0.6875rem] uppercase tracking-widest text-on-primary/60">Foundation</span>
+                            </div>
+                            <div>
+                                <h3 class="text-3xl font-black text-on-primary mb-2 uppercase tracking-tight">SAP S/4HANA</h3>
+                                <p class="text-sm text-on-primary/70 max-w-sm">Deep technical integration, cloud deployments, and ERP lifecycle management for global enterprise frameworks.</p>
+                            </div>
+                        </div>
+                        <div class="absolute right-[-10%] bottom-[-20%] opacity-10">
+                            <span class="material-symbols-outlined text-[15rem]">hub</span>
+                        </div>
+                    </div>
+                    <!-- Custom Solutions -->
+                    <div class="md:col-span-full bg-surface-container p-12 rounded-lg group hover:bg-surface-bright transition-all duration-500 h-[28rem] relative overflow-hidden flex flex-col lg:flex-row gap-12">
+                        <div class="flex-1 flex flex-col justify-center">
+                            <h3 class="text-4xl font-black text-zinc-100 mb-6 leading-tight">Agile PM &amp; <br /> Engineering</h3>
+                            <p class="text-secondary-dim text-sm leading-relaxed mb-8 max-w-md">
+                                Managing end-to-end IT implementations, CI/CD pipelines on GCP/AWS, and leading sprint ceremonies to ensure 99.9% uptime and zero-defect deployments.
+                            </p>
+                            <div class="flex gap-3">
+                                <span class="px-3 py-1 bg-secondary-container/40 text-secondary border border-secondary/10 text-[0.625rem] font-bold uppercase tracking-wider rounded">Cloud Native</span>
+                                <span class="px-3 py-1 bg-secondary-container/40 text-secondary border border-secondary/10 text-[0.625rem] font-bold uppercase tracking-wider rounded">GCP / AWS</span>
+                                <span class="px-3 py-1 bg-secondary-container/40 text-secondary border border-secondary/10 text-[0.625rem] font-bold uppercase tracking-wider rounded">Kubernetes</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 rounded-lg overflow-hidden h-full grayscale hover:grayscale-0 transition-all duration-700">
+                            <img alt="" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjjgyEgly6uNpQlFrLS-tkvuJQAitl0cuvL7C4L4fU-G_NaXmXmHa90oXGp_RjCBRnYNVXxXzrSKw4H3jiG4xPPP1_2XX9LPXUIu0HcNGOL78XsESPAbtIXbaaZ5fUhxZtCS72hVK_e_cy_ThrMA6YEsl-cb290GC6H18nK9wuvKMhDsg2myhFcooNM-NlAGjBVZoPt-3bA_fMitdSnkcU_WFEkfvZopCwDnEJ_vvKBqeIgftNPOuaSPPmEKuuyYCR4mjlYZ8yUtbg" />
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Experience Timeline -->
+        <section id="experience" class="reveal bg-surface py-32 px-8 overflow-hidden border-b border-surface-container">
+            <div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-start">
+                <div>
+                    <span class="font-label text-[0.6875rem] uppercase tracking-[0.1em] text-secondary mb-6 block">Career Journey</span>
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-12">Professional <br />Experience.</h2>
+                    
+                    <ul class="space-y-12">
+                        <li class="flex gap-6 relative">
+                            <span class="absolute left-6 top-10 bottom-[-3rem] w-px bg-outline-variant/20 hidden md:block"></span>
+                            <div class="hidden md:flex w-12 h-12 shrink-0 items-center justify-center rounded-full bg-primary/10 border border-primary/20 z-10 text-primary">
+                                <span class="material-symbols-outlined">work</span>
+                            </div>
+                            <div>
+                                <h6 class="font-bold text-xl mb-1">Founding Software Engineer & IT PM</h6>
+                                <p class="text-sm font-semibold text-primary mb-4">Praesidium Compliance Systems | May 2025 – Present</p>
+                                <p class="text-on-surface-variant text-sm leading-relaxed">
+                                    Architected an event-driven microservices system using Python and Redis for high-volume document ingestion. Led full-lifecycle delivery of SAP-integrated compliance platform, achieving 99.9% uptime on GKE while cutting costs by 40%.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="flex gap-6 relative">
+                            <span class="absolute left-6 top-10 bottom-[-3rem] w-px bg-outline-variant/20 hidden md:block"></span>
+                            <div class="hidden md:flex w-12 h-12 shrink-0 items-center justify-center rounded-full bg-surface-container-high border border-outline-variant/30 z-10 text-secondary">
+                                <span class="material-symbols-outlined">api</span>
+                            </div>
+                            <div>
+                                <h6 class="font-bold text-xl mb-1">Software Engineer & IT PM</h6>
+                                <p class="text-sm font-semibold text-secondary mb-4">BharatDarshan | Sept 2024 – April 2025</p>
+                                <p class="text-on-surface-variant text-sm leading-relaxed">
+                                    Managed large-scale content platform re-architecture. Built full CI/CD pipelines on GCP, implemented RAG-based systems, and established change management protocols across 3 business units.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="flex gap-6 relative">
+                            <div class="hidden md:flex w-12 h-12 shrink-0 items-center justify-center rounded-full bg-surface-container-high border border-outline-variant/30 z-10 text-secondary">
+                                <span class="material-symbols-outlined">database</span>
+                            </div>
+                            <div>
+                                <h6 class="font-bold text-xl mb-1">Data Scientist & Engineer</h6>
+                                <p class="text-sm font-semibold text-secondary mb-4">Agami Tech Pvt Ltd. | July 2020 – June 2022</p>
+                                <p class="text-on-surface-variant text-sm leading-relaxed">
+                                    Engineered high-performance Elasticsearch pipelines processing 1M+ daily logs. Optimized classification algorithms boosting accuracy by 56% and delivered comprehensive ELK stack monitoring infrastructure.
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="relative md:sticky md:top-32 hidden md:block">
+                    <img class="w-full aspect-[4/5] object-cover grayscale opacity-60 rounded-lg" data-alt="Minimalist macro shot of high-tech server racks" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCna5gW3RL3cbaw2ejylUTwQckrejDcDVuKiAoaXeGO7GjXr2BPnFeuLBnFQJb01DY5BCX3DE9RgKxcUDe-gcn2tmMvf5H3NDnSIkxQX-grcEgDb7vAq1HyrXLUiNlodNT6CVBiu6P0TKMyY0niG1Utm8IGnuLoocOlxqUt8u_cGyNT-mcHHivcbIay6szjblsD37jGo1YKH2fgXO0h_QVNjP_OjVBrQPVjSrdSuX5zJOavQ0MPUBPBdIzjZ57cvtEMrDAlUK8zwdUB" />
+                    <div class="absolute -bottom-10 -left-10 bg-primary/10 backdrop-blur-2xl p-8 rounded border border-primary/20 max-w-xs shadow-2xl">
+                        <div class="text-zinc-100 font-bold text-sm mb-2">Education</div>
+                        <p class="text-sm text-primary-fixed mb-1">MS, Business Analytics</p>
+                        <p class="text-xs text-secondary mb-4">University of Texas at Dallas (GPA: 3.72)</p>
+                        <p class="text-sm text-primary-fixed mb-1">BE, Computer Science</p>
+                        <p class="text-xs text-secondary">Gujarat Technological University (GPA: 9.3)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Presentation Row -->
+        <section id="work" class="reveal py-32 bg-surface-container-lowest">
+            <div class="max-w-[1400px] mx-auto px-8 space-y-32">
+                <!-- Project 1 -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                    <div class="order-2 lg:order-1 relative">
+                        <div class="aspect-[4/3] rounded-lg overflow-hidden bg-surface-container-low p-8">
+                            <img alt="" class="w-full h-full object-cover rounded shadow-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAw-1hIfChc-gbODnpyHVPky4bPvlgUEUDJAjcCFK7PXu9OSQbi0g12lkYCpFzpZa-u0DVja5E_YsNxBydkrE5_U7zLqRCkidbApuq9yEfaxZ7UZQ8vHV-UPQxdRO0QB3glq5ATYWeHWrSlXstl95lgNwlhTjg9vPFKC49A5zOmAPeap_ejrpwFe_5s6tQgr-UNO50gYNCEGIMwHN0lwzc8XigZUze-BMYisBviExjjUSkpIMXX_gzXlFXgNE8acsFqdYv93CgFbDR" />
+                        </div>
+                        <div class="absolute -bottom-10 -right-10 glass-panel p-8 rounded-lg border border-outline-variant/10 hidden md:block">
+                            <div class="flex gap-4 items-center">
+                                <div class="w-12 h-12 rounded bg-primary/20 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-primary">speed</span>
+                                </div>
+                                <div>
+                                    <div class="text-zinc-100 font-bold text-sm">Cache Hit Rate</div>
+                                    <div class="text-primary text-xl font-mono">85%+</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <div class="label-sm text-[0.6875rem] uppercase tracking-[0.2em] text-secondary mb-6 block">Key Architecture</div>
+                        <h2 class="text-4xl md:text-5xl font-black tracking-tight text-zinc-100 mb-8 leading-[1.1]">Neural-Mesh InferenceFlow</h2>
+                        <p class="text-secondary-dim leading-relaxed mb-10 text-lg">
+                            A distributed high-throughput orchestration platform for AI agents. Managed end-to-end delivery combining smart routing with predictive auto-scaling to optimize multi-model workflows.
+                        </p>
+                        <div class="flex gap-3 mb-8">
+                            <span class="px-3 py-1 bg-surface-container border border-outline-variant/30 text-xs rounded text-zinc-300">Redis</span>
+                            <span class="px-3 py-1 bg-surface-container border border-outline-variant/30 text-xs rounded text-zinc-300">Semantic Caching</span>
+                            <span class="px-3 py-1 bg-surface-container border border-outline-variant/30 text-xs rounded text-zinc-300">Predictive Auto-Scaling</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                    <div class="order-1">
+                        <div class="label-sm text-[0.6875rem] uppercase tracking-[0.2em] text-secondary mb-6 block">High-Concurrency System</div>
+                        <h2 class="text-4xl md:text-5xl font-black tracking-tight text-zinc-100 mb-8 leading-[1.1]">ConstitutionalFlow <br/>Validation</h2>
+                        <p class="text-secondary-dim leading-relaxed mb-10 text-lg">
+                            Microservices architecture scoring system deployed to handle 10,000+ concurrent requests. Built a consensus management layer using weighted voting algorithms for high-integrity data validation.
+                        </p>
+                        <div class="flex gap-3 mb-8">
+                            <span class="px-3 py-1 bg-surface-container border border-outline-variant/30 text-xs rounded text-zinc-300">FastAPI</span>
+                            <span class="px-3 py-1 bg-surface-container border border-outline-variant/30 text-xs rounded text-zinc-300">Microservices</span>
+                            <span class="px-3 py-1 bg-surface-container border border-outline-variant/30 text-xs rounded text-zinc-300">Sub-2s P95 Latency</span>
+                        </div>
+                    </div>
+                    <div class="order-2 relative">
+                        <div class="aspect-[4/3] rounded-lg overflow-hidden bg-surface-container-low p-8">
+                            <img alt="" class="w-full h-full object-cover rounded shadow-2xl grayscale brightness-75" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPDr5ft3dkUiVM8Pr-WwK9Wdu3i927ETC_e5lZvPKlhFBBSoWWd-s1lfz-AkqCsd877cg6bsGPH8ZO2hC-TofNbyMbsJr22Q969dpZ-23e8_UJ8KfXMzF245BsgErOjxtG7JA0VDIjFHqRWzrNE9GaY3BetmQnnryAypMwn_WU4yXtZnEGWOselDo0sPK8LJVG3iKS8RplcW0tDkzD35-qIIZ5Snw2HoK_xgjbw5tsbq2PzNWf2hR6Mdl0yr2lV3c7T4fdDgStiUfU" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: VibeDB -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                    <div class="order-2 lg:order-1 relative">
+                        <div class="aspect-[4/3] rounded-lg overflow-hidden bg-surface-container-low p-8">
+                            <img alt="VibeDB Database Server Concept" class="w-full h-full object-cover rounded shadow-2xl grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCna5gW3RL3cbaw2ejylUTwQckrejDcDVuKiAoaXeGO7GjXr2BPnFeuLBnFQJb01DY5BCX3DE9RgKxcUDe-gcn2tmMvf5H3NDnSIkxQX-grcEgDb7vAq1HyrXLUiNlodNT6CVBiu6P0TKMyY0niG1Utm8IGnuLoocOlxqUt8u_cGyNT-mcHHivcbIay6szjblsD37jGo1YKH2fgXO0h_QVNjP_OjVBrQPVjSrdSuX5zJOavQ0MPUBPBdIzjZ57cvtEMrDAlUK8zwdUB" />
+                        </div>
+                        <div class="absolute -bottom-10 -right-10 glass-panel p-8 rounded-lg border border-outline-variant/10 hidden md:block">
+                            <div class="flex gap-4 items-center">
+                                <div class="w-12 h-12 rounded bg-primary/20 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-primary">data_object</span>
+                                </div>
+                                <div>
+                                    <div class="text-zinc-100 font-bold text-sm">Schema-Later</div>
+                                    <div class="text-primary text-xl font-mono">Auto-Evolve</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <div class="label-sm text-[0.6875rem] uppercase tracking-[0.2em] text-secondary mb-6 block">High-Performance Database</div>
+                        <h2 class="text-4xl md:text-5xl font-black tracking-tight text-zinc-100 mb-8 leading-[1.1]">VibeDB</h2>
+                        <p class="text-secondary-dim leading-relaxed mb-10 text-lg">
+                            A high-performance "Schema-Later" relational database. It intelligently parses incoming JSON as the source of truth, dynamically mutating its schema on-the-fly. Built with a unified WASM dashboard and real-time SSE endpoints.
+                        </p>
+                        <div class="flex gap-3 mb-8 flex-wrap">
+                            <span class="px-3 py-1 bg-surface-container border border-outline-variant/30 text-xs rounded text-zinc-300">Rust &amp; VibeCore</span>
+                            <span class="px-3 py-1 bg-surface-container border border-outline-variant/30 text-xs rounded text-zinc-300">Axum</span>
+                            <span class="px-3 py-1 bg-surface-container border border-outline-variant/30 text-xs rounded text-zinc-300">libSQL/WAL</span>
+                            <span class="px-3 py-1 bg-surface-container border border-outline-variant/30 text-xs rounded text-zinc-300">DashMap Cache</span>
+                        </div>
+                        <a href="https://github.com/vibe-db" class="text-sm font-semibold text-primary hover:text-primary-dim flex items-center gap-2">
+                            <span>Explore VibeDB Architecture</span>
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA / Contact Section -->
+        <section id="contact" class="reveal max-w-[1400px] mx-auto px-8 py-32 border-t border-surface-container">
+            <div class="bg-surface-container-low p-10 md:p-16 rounded-2xl relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent z-0"></div>
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Ready to Scale?</h2>
+                        <p class="text-on-surface-variant text-lg mb-12 max-w-md">Let's discuss how we can engineer a custom software solution or manage your enterprise IT implementation.</p>
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-4 text-zinc-300 hover:text-white transition-colors">
+                                <span class="material-symbols-outlined text-primary">mail</span>
+                                <a href="mailto:akdesai912@gmail.com" class="text-lg">akdesai912@gmail.com</a>
+                            </div>
+                            <div class="flex items-center gap-4 text-zinc-300">
+                                <span class="material-symbols-outlined text-primary">location_on</span>
+                                <span class="text-lg">Fort Worth, TX 76244</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <form action="#" class="space-y-6 bg-surface p-8 rounded-xl border border-outline-variant/10">
+                            <div>
+                                <label class="font-label text-[0.6875rem] uppercase tracking-[0.1em] text-secondary" for="name">Your Name</label>
+                                <input class="w-full bg-transparent border-0 border-b border-outline-variant/30 px-0 py-3 focus:ring-0 focus:border-primary text-on-surface placeholder:text-outline transition-all" id="name" placeholder="John Doe" type="text" />
+                            </div>
+                            <div>
+                                <label class="font-label text-[0.6875rem] uppercase tracking-[0.1em] text-secondary" for="email">Email Address</label>
+                                <input class="w-full bg-transparent border-0 border-b border-outline-variant/30 px-0 py-3 focus:ring-0 focus:border-primary text-on-surface placeholder:text-outline transition-all" id="email" placeholder="john@example.com" type="email" />
+                            </div>
+                            <div>
+                                <label class="font-label text-[0.6875rem] uppercase tracking-[0.1em] text-secondary" for="message">Message</label>
+                                <textarea class="w-full bg-transparent border-0 border-b border-outline-variant/30 px-0 py-3 focus:ring-0 focus:border-primary text-on-surface placeholder:text-outline transition-all resize-none" id="message" placeholder="How can I help you?" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="w-full mt-4 bg-primary text-on-primary px-8 py-4 rounded font-bold hover:opacity-90 transition-all active:scale-[0.98]">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <i data-lucide="shield" class="h-6 w-6 text-blue-400"></i>
-                        <span class="text-lg font-bold">Praesidium Systems</span>
-                    </div>
-                    <p class="text-gray-400">
-                        AI Governance, simplified.
-                    </p>
-                </div>
-                
-                <div>
-                    <h3 class="font-bold mb-4">Product</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Features</a></li>
-                        <li><a href="#how-it-works" class="text-gray-400 hover:text-white transition-colors">How It Works</a></li>
-                        <li><a href="#deployment" class="text-gray-400 hover:text-white transition-colors">Deployment</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="font-bold mb-4">Resources</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">API Reference</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Support</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="font-bold mb-4">Company</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
-                    </ul>
-                </div>
+    <footer class="bg-[#000000] w-full py-16">
+        <div class="flex flex-col md:flex-row justify-between items-center max-w-[1400px] mx-auto px-8 gap-8">
+            <div class="text-zinc-100 font-bold uppercase tracking-widest text-sm">
+                ARJAV DESAI
             </div>
-            
-            <div class="border-t border-gray-800 pt-8 mt-8 text-center text-gray-500 text-sm">
-                &copy; <span id="current-year"></span> Praesidium Compliance Systems Corporation. All rights reserved.
+            <div class="flex gap-12 font-['Inter'] text-[0.6875rem] uppercase tracking-[0.1em]">
+                <a class="text-zinc-500 hover:text-zinc-100 transition-colors" href="https://github.com/ArjavDesa912" target="_blank" rel="noopener noreferrer">Github</a>
+                <a class="text-zinc-500 hover:text-zinc-100 transition-colors" href="https://www.linkedin.com/in/desaiarjav/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </div>
+            <div class="font-['Inter'] text-[0.6875rem] uppercase tracking-[0.1em] text-zinc-500">
+                © 2024 Arjav Desai. All Rights Reserved.
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript -->
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-        
-        // Set current year in footer
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-        
-        // Mobile menu toggle
-        function toggleMobileMenu(isOpen) {
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (isOpen) {
-                mobileMenu.classList.remove('hidden');
-            } else {
-                mobileMenu.classList.add('hidden');
-            }
-        }
-        
-        // Smooth scroll function
-        function scrollToSection(id) {
-            const element = document.getElementById(id);
-            if (element) {
-                window.scrollTo({
-                    top: element.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-                toggleMobileMenu(false);
-            }
-        }
-        
-        // Intersection Observer for animations
-        document.addEventListener('DOMContentLoaded', function() {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scroll animations
+            const reveals = document.querySelectorAll('.reveal');
             
-            const handleIntersect = (entries, observer) => {
+            const revealObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('opacity-100');
-                        entry.target.classList.remove('opacity-0');
+                    if(entry.isIntersecting) {
+                        entry.target.classList.add('active');
                     }
                 });
-            };
-            
-            const observer = new IntersectionObserver(handleIntersect, observerOptions);
-            
-            document.querySelectorAll('section').forEach(section => {
-                if (section.id) {
-                    observer.observe(section);
-                }
+            }, {
+                root: null,
+                threshold: 0.15,
+                rootMargin: "0px"
             });
+            
+            reveals.forEach(reveal => revealObserver.observe(reveal));
+
+            // Navbar highlighting
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const navObserverOptions = {
+                root: null,
+                rootMargin: '-30% 0px -60% 0px',
+                threshold: 0
+            };
+
+            const navObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const activeId = entry.target.id;
+                        navLinks.forEach(link => {
+                            if (link.getAttribute('href') === `#${activeId}`) {
+                                link.classList.add('text-zinc-100', 'font-semibold');
+                                link.classList.remove('text-zinc-500');
+                            } else {
+                                link.classList.remove('text-zinc-100', 'font-semibold');
+                                link.classList.add('text-zinc-500');
+                            }
+                        });
+                    }
+                });
+            }, navObserverOptions);
+
+            sections.forEach(sec => navObserver.observe(sec));
         });
     </script>
 </body>
